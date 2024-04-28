@@ -878,7 +878,7 @@ Java.perform(function () {
 
         //name and name color
 
-        menu.createMenuBarTitle("_______𓆤 VORAZ MENU 𓆤 ______", "#FFFFFF");
+        menu.createMenuBarTitle("____𓆤 TICK GAY MENU 𓆤___", "#FFFFFF");
 
         //set color of on and off options.
 
