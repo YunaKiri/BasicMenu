@@ -848,6 +848,27 @@ const option4 = {
 
 
 
+const option5 = {
+
+    on() {
+
+        
+          
+    },
+
+    off() {
+
+
+        
+    }
+
+    }
+
+
+
+
+
+
 
 
 
@@ -893,6 +914,8 @@ Java.perform(function () {
         menu.addOption("option3", "NO RECOIL", option3)
         
         menu.addOption("option4", "KILL ME", option4)
+
+        menu.addOption("option5", "RK DA BUNDINHA", option5)
 
     
 // Endereço base para modificar vida e estamina
