@@ -852,12 +852,26 @@ const option5 = {
 
     on() {
 
-        
+        const libBase2 = Module.getBaseAddress("libil2cpp.so").add(0xA79DC8)
+   
+Interceptor.attach(libBase2,{
+    
+    onEnter(args){
+const iniciarExpedition = Module.getBaseAddress("libil2cpp.so").add(0xA7B7C4)
+const finiciarExpedition = new NativeFunction(iniciarExpedition,"void",["pointer"])
+
+finiciarExpedition(args[0])
+        console.log(10)
+    }
+})
+
           
     },
 
     off() {
 
+     const diePLayer = Module.getBaseAddress("libil2cpp.so").add(0xA7B7C4);
+        Interceptor.detachAll();
 
         
     }
@@ -915,7 +929,7 @@ Java.perform(function () {
         
         menu.addOption("option4", "KILL ME", option4)
 
-        menu.addOption("option5", "RK DA BUNDINHA", option5)
+        menu.addOption("option5", "FREE START MATCH(select map first)", option5)
 
     
 // Endereço base para modificar vida e estamina
