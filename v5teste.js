@@ -940,14 +940,14 @@ Java.perform(function () {
         }
 
         // Adicionando a barra para modificar a vida
-        menu.addSeekBar("SET [ 1 FOR RESET ] SET LIFE:", 1, 1, 99, function(changed, state) {
+        menu.addSeekBar("[SET 1 FOR RESET ]       SET LIFE:", 1, 1, 99, function(changed, state) {
             if (state === "end") {
                 setLifeAndStamina(changed, 0x18);
             }
         });
 
         // Adicionando a barra para modificar a estamina
-        menu.addSeekBar("SET [ 1 FOR RESET ] SET ESTAMINA:", 1, 1, 99, function(changed, state) {
+        menu.addSeekBar("[SET 1 FOR RESET ]        SET ESTAMINA:", 1, 1, 99, function(changed, state) {
             if (state === "end") {
                 setLifeAndStamina(changed, 0x1C);
             }
