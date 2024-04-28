@@ -882,26 +882,6 @@ finiciarExpedition(args[0])
 
 
 
-const option6 = {
-
-    on() {
-
-          
-    },
-
-    off() {
-
-        
-    }
-}
-
-
-
-
-
-
-
-
 
 
 
@@ -931,7 +911,7 @@ Java.perform(function () {
 
         //name and name color
 
-        menu.createMenuBarTitle("____𓆤 TICK GAY MENU 𓆤___", "#FFFFFF");
+        menu.createMenuBarTitle("____𓆤 VORAZ MENU 𓆤___", "#FFFFFF");
 
         //set color of on and off options.
 
@@ -948,8 +928,6 @@ Java.perform(function () {
         menu.addOption("option4", "KILL ME", option4)
 
         menu.addOption("option5", "FREE START MATCH(select map first)", option5)
-
-        menu.addOption("option6", "RK DA A BUNDINHA On/off", option6)
 
     
 // Endereço base para modificar vida e estamina
