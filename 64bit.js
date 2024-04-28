@@ -723,9 +723,14 @@ args[0].add(0x30).readPointer().add(0x54).writeU8(1)
     },
 
     off() {
+const playerStats = Module.getBaseAddress("libil2cpp.so").add(0xA91594)
+Interceptor.attach(playerStats,{
+  onEnter(args){
+args[0].add(0x30).readPointer().add(0x54).writeU8(0)
 
-        const godMod = Module.getBaseAddress("libil2cpp.so").add(0xA91594);
-        Interceptor.detachAll();
+
+  }
+})
 
 
     }
