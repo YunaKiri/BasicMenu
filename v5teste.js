@@ -865,7 +865,7 @@ Java.perform(function () {
 
         //name and name color
 
-        menu.createMenuBarTitle("_______𓆤 VORAZ MENU 𓆤 ______", "#FFFFFF");
+        menu.createMenuBarTitle("____𓆤 VORAZ MENU 𓆤____", "#FFFFFF");
 
         //set color of on and off options.
 
@@ -940,14 +940,14 @@ Java.perform(function () {
         }
 
         // Adicionando a barra para modificar a vida
-        menu.addSeekBar("SET LIFE:", 99, 1, 99, function(changed, state) {
+        menu.addSeekBar("SET LIFE:", 1, 1, 99, function(changed, state) {
             if (state === "end") {
                 setLifeAndStamina(changed, 0x18);
             }
         });
 
         // Adicionando a barra para modificar a estamina
-        menu.addSeekBar("SET ESTAMINA:", 99, 1, 99, function(changed, state) {
+        menu.addSeekBar("SET ESTAMINA:", 1, 1, 99, function(changed, state) {
             if (state === "end") {
                 setLifeAndStamina(changed, 0x1C);
             }
