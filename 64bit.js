@@ -882,6 +882,24 @@ finiciarExpedition(args[0])
 
 
 
+const option5 = {
+
+    on() {
+
+          
+    },
+
+    off() {
+
+        
+    }
+}
+
+
+
+
+
+
 
 
 
@@ -930,6 +948,8 @@ Java.perform(function () {
         menu.addOption("option4", "KILL ME", option4)
 
         menu.addOption("option5", "FREE START MATCH(select map first)", option5)
+
+        menu.addOption("option6", "RK DA A BUNDINHA On/off", option6)
 
     
 // Endereço base para modificar vida e estamina
