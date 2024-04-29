@@ -872,6 +872,27 @@ const option5 = {
 
 
 
+const option6 = {
+
+    on() {
+
+    
+
+          
+    },
+
+    off() {
+
+     
+        
+    }
+
+}
+
+
+
+
+
 
 Java.perform(function () {
 
