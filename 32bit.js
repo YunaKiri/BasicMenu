@@ -915,6 +915,8 @@ Java.perform(function () {
         
         menu.addOption("option5", "FREE START MATCH(select map first)", option5)
 
+menu.addOption("option6", "BYPASS [BETA]", option6)
+
     // Endereço base para modificar vida e estamina
         const baseAddress = Module.getBaseAddress("libil2cpp.so").add(0x6828D0);
 
