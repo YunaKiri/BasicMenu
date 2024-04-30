@@ -708,10 +708,13 @@ class Menu {
 const option1 = {
 
     on() {
-
-const playerStats = Module.getBaseAddress("libil2cpp.so").add(0xA91594)
-Interceptor.attach(playerStats,{
+                                                          //update player controller
+const PlayerController = Module.getBaseAddress("libil2cpp.so").add(0xA9C668)
+Interceptor.attach(PlayerController,{
   onEnter(args){
+
+    //hook 1 = player stats
+    //hook 2 = herança characterstats
 args[0].add(0x30).readPointer().add(0x54).writeU8(1)
 
 
@@ -723,9 +726,12 @@ args[0].add(0x30).readPointer().add(0x54).writeU8(1)
     },
 
     off() {
-const playerStats = Module.getBaseAddress("libil2cpp.so").add(0xA91594)
-Interceptor.attach(playerStats,{
+                                                          //update playercontroller
+const PlayerController = Module.getBaseAddress("libil2cpp.so").add(0xA9C668)
+Interceptor.attach(PlayerController,{
   onEnter(args){
+      //hook 1 = player stats
+      //hook 2 = herança characterstats
 args[0].add(0x30).readPointer().add(0x54).writeU8(0)
 
 
@@ -742,14 +748,17 @@ args[0].add(0x30).readPointer().add(0x54).writeU8(0)
 const option2 = {
 
     on() {
-
-        const playerStats = Module.getBaseAddress("libil2cpp.so").add(0xA27D84)
-        Interceptor.attach(playerStats,{
+                                                          //update EnemyStateManager
+        const EnemyStateManager = Module.getBaseAddress("libil2cpp.so").add(0xA3425C)
+        Interceptor.attach(EnemyStateManager,{
           onEnter(args){
-        
+           //hook 1 = EnemyController
+           //hook 2 = EnemyHealth
+
+           //armazena
            const enemyHealth = args[0].add(0x20).readPointer().add(0x28).readPointer()
         
-           const die = Module.getBaseAddress("libil2cpp.so").add(0xA23EF0)
+           const die = Module.getBaseAddress("libil2cpp.so").add(0xA303C8)
            const fDie = new NativeFunction(die,"void",["pointer"])
         
            fDie(enemyHealth)
@@ -764,7 +773,7 @@ const option2 = {
     },
 
     off() {
-        const enemyHealth = Module.getBaseAddress("libil2cpp.so").add(0xA27D84);
+        const enemyHealth = Module.getBaseAddress("libil2cpp.so").add(0xA3425C);
         Interceptor.detachAll();
 
 
@@ -776,11 +785,15 @@ const option2 = {
 const option3 = {
 
     on() {
-
-        const playerStats = Module.getBaseAddress("libil2cpp.so").add(0xA91594)
-        Interceptor.attach(playerStats,{
+                                                          //update playercontroller
+        const PlayerController = Module.getBaseAddress("libil2cpp.so").add(0xA9C668)
+        Interceptor.attach(PlayerController,{
           onEnter(args){
         
+            //hook 1 = PlayerNoise
+            //hook 2 = AvatarSetup
+            //hook 3 = WeaponShooting
+            //hook 4 = WeaponRecoil
         args[0].add(0x50).readPointer().add(0x10).readPointer().add(0x58).readPointer().add(0x30).readPointer().add(0x40).writeFloat(0)
         args[0].add(0x50).readPointer().add(0x10).readPointer().add(0x58).readPointer().add(0x30).readPointer().add(0x3C).writeFloat(0)
         args[0].add(0x50).readPointer().add(0x10).readPointer().add(0x58).readPointer().add(0x30).readPointer().add(0x38).writeFloat(0)
@@ -794,8 +807,8 @@ const option3 = {
     },
 
     off() {
-        const playerStats = Module.getBaseAddress("libil2cpp.so").add(0xA91594)
-        Interceptor.attach(playerStats,{
+        const PlayerController = Module.getBaseAddress("libil2cpp.so").add(0xA91594)
+        Interceptor.attach(PlayerController,{
           onEnter(args){
         
         args[0].add(0x50).readPointer().add(0x10).readPointer().add(0x58).readPointer().add(0x30).readPointer().add(0x40).writeFloat(0.20000000298023224)
@@ -815,14 +828,16 @@ const option3 = {
 const option4 = {
 
     on() {
-
-        const playerStats = Module.getBaseAddress("libil2cpp.so").add(0xA91594)
-        Interceptor.attach(playerStats,{
+                                                          //update playercontroller
+        const PlayerController = Module.getBaseAddress("libil2cpp.so").add(0xA9C668)
+        Interceptor.attach(PlayerController,{
           onEnter(args){
        
+        //hook 1 = PlayerStats
+        //armazena
        const diePlayer = args[0].add(0x30).readPointer()
 
-      const dieYou = Module.getBaseAddress("libil2cpp.so").add(0xA9CE50)
+      const dieYou = Module.getBaseAddress("libil2cpp.so").add(0xAA7F24)
       const fdieYou = new NativeFunction(dieYou,"void",["pointer"])
         
       fdieYou(diePlayer)
@@ -835,11 +850,9 @@ const option4 = {
 
     off() {
 
-        const diePLayer = Module.getBaseAddress("libil2cpp.so").add(0xA91594);
+        const diePLayer = Module.getBaseAddress("libil2cpp.so").add(0xA9C668);
         Interceptor.detachAll();
 
-
-    }
 
 }
 
@@ -852,12 +865,15 @@ const option5 = {
 
     on() {
 
-        const libBase2 = Module.getBaseAddress("libil2cpp.so").add(0xA79DC8)
+                                                          //update EncounterPanel
+        const libBase2 = Module.getBaseAddress("libil2cpp.so").add(0xA85E50)
    
 Interceptor.attach(libBase2,{
     
     onEnter(args){
-const iniciarExpedition = Module.getBaseAddress("libil2cpp.so").add(0xA7B7C4)
+     //func AcceptStartExpedition
+     
+const iniciarExpedition = Module.getBaseAddress("libil2cpp.so").add(0xA86838)
 const finiciarExpedition = new NativeFunction(iniciarExpedition,"void",["pointer"])
 
 finiciarExpedition(args[0])
@@ -870,13 +886,17 @@ finiciarExpedition(args[0])
 
     off() {
 
-     const diePLayer = Module.getBaseAddress("libil2cpp.so").add(0xA7B7C4);
+     const diePLayer = Module.getBaseAddress("libil2cpp.so").add(0xA85E50);
         Interceptor.detachAll();
 
         
     }
 
     }
+  
+
+
+
 
 
 
