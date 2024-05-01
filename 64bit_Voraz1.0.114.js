@@ -843,7 +843,7 @@ const option4 = {
       fdieYou(diePlayer)
           }
         })
-          
+	    
 
 
     },
@@ -856,7 +856,7 @@ const option4 = {
 
 }
 
-
+}
 
 
 
