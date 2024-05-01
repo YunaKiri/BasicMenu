@@ -895,7 +895,46 @@ finiciarExpedition(args[0])
     }
   
 
+const option6 = {
 
+    on() {
+
+    
+const LibBaseFuelCoin = Module.getBaseAddress("libil2cpp.so").add(0xAB63FC)
+   
+Interceptor.attach(libBase3,{
+    
+    onEnter(args){
+
+    const getFuel =  Module.getBaseAddress("libil2cpp.so").add(0xAB22A0)
+    const fgetFuel = new NativeFunction(getFuel,"void",["pointer"])
+
+    fgetFuel(args[0])
+   
+    const getMoney =  Module.getBaseAddress("libil2cpp.so").add(0xAB210C)
+    const fgetMoney = new NativeFunction(getMoney,"void",["pointer"])
+
+    fgetMoney(args[0])
+    
+
+    
+    }
+})
+
+
+          
+    },
+
+    off() {
+
+     const diePLayer = Module.getBaseAddress("libil2cpp.so").add(0xAB63FC);
+        Interceptor.detachAll();
+
+        
+      }
+
+    }
+  
 
 
 
@@ -948,6 +987,8 @@ Java.perform(function () {
         menu.addOption("option4", "KILL ME", option4)
 
         menu.addOption("option5", "FREE START MATCH(select map first)", option5)
+        
+        menu.addOption("option6", "ADD COINS AND FUEL", option6)
 
     
 // Endereço base para modificar vida e estamina
