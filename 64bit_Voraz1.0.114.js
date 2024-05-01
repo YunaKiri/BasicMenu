@@ -902,7 +902,7 @@ const option6 = {
     
 const LibBaseFuelCoin = Module.getBaseAddress("libil2cpp.so").add(0xAB63FC)
    
-Interceptor.attach(libBase3,{
+Interceptor.attach(LibBaseFuelCoin,{
     
     onEnter(args){
 
