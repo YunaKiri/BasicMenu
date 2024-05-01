@@ -927,7 +927,7 @@ Interceptor.attach(libBase3,{
 
     off() {
 
-     const diePLayer = Module.getBaseAddress("libil2cpp.so").add(0xAB63FC);
+     const LibBaseFuelCoin = Module.getBaseAddress("libil2cpp.so").add(0xAB63FC);
         Interceptor.detachAll();
 
         
