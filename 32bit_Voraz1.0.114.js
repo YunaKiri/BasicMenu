@@ -847,72 +847,75 @@ const option5 = {
     
     const baselib = Module.getBaseAddress("libil2cpp.so").add(0x688670)
 
-    Interceptor.attach(baselib,{
+Interceptor.attach(baselib,{
 
-        onEnter(args){
+    onEnter(args){
 
-            const phontomView = args[0].add(0xC).readPointer().add(0x3C).readU8()
+        const phontomView = args[0].add(0xC).readPointer().add(0x3C).readU8()
          
-            const isMine =  Module.getBaseAddress("libil2cpp.so").add(0x1A0B69C)
-            const fIsMine = new NativeFunction(isMine,"bool",["pointer"])
+        const isMine =  Module.getBaseAddress("libil2cpp.so").add(0x1A0B69C)
+        const fIsMine = new NativeFunction(isMine,"bool",["pointer"])
 
-            if(phontomView == false){
+        if(phontomView == false){
 
-                const compponent =  Module.getBaseAddress("libil2cpp.so").add(0x24909C0)
-                const fcompponent = new NativeFunction(compponent,"pointer",["pointer"])
+            const compponent =  Module.getBaseAddress("libil2cpp.so").add(0x24909C0)
+            const fcompponent = new NativeFunction(compponent,"pointer",["pointer"])
     
-                let transform =  fcompponent(args[0])
+            let transform =  fcompponent(args[0])
     
            
-                const setScale = Module.getBaseAddress("libil2cpp.so").add(0x249F940)
-                const fsetScale = new NativeFunction(setScale,"void",["pointer","float","float","float"])
+            const setScale = Module.getBaseAddress("libil2cpp.so").add(0x249F940)
+            const fsetScale = new NativeFunction(setScale,"void",["pointer","float","float","float"])
              
-                fsetScale(transform,4.6,45.0,4.6)
+            fsetScale(transform,4.6,45.0,4.6)
                
        
-            }else{
+        }else{
 
-            }
         }
-    })
-
-
     }
+})
+
+
+    },
 
     off() {
     
     
     const baselib = Module.getBaseAddress("libil2cpp.so").add(0x688670)
 
-    Interceptor.attach(baselib,{
+Interceptor.attach(baselib,{
 
-        onEnter(args){
+    onEnter(args){
 
-            const phontomView = args[0].add(0xC).readPointer().add(0x3C).readU8()
+        const phontomView = args[0].add(0xC).readPointer().add(0x3C).readU8()
          
-            const isMine =  Module.getBaseAddress("libil2cpp.so").add(0x1A0B69C)
-            const fIsMine = new NativeFunction(isMine,"bool",["pointer"])
+        const isMine =  Module.getBaseAddress("libil2cpp.so").add(0x1A0B69C)
+        const fIsMine = new NativeFunction(isMine,"bool",["pointer"])
 
-            if(phontomView == false){
+        if(phontomView == false){
 
-                const compponent =  Module.getBaseAddress("libil2cpp.so").add(0x24909C0)
-                const fcompponent = new NativeFunction(compponent,"pointer",["pointer"])
+            const compponent =  Module.getBaseAddress("libil2cpp.so").add(0x24909C0)
+            const fcompponent = new NativeFunction(compponent,"pointer",["pointer"])
     
-                let transform =  fcompponent(args[0])
+            let transform =  fcompponent(args[0])
     
            
-                const setScale = Module.getBaseAddress("libil2cpp.so").add(0x249F940)
-                const fsetScale = new NativeFunction(setScale,"void",["pointer","float","float","float"])
+            const setScale = Module.getBaseAddress("libil2cpp.so").add(0x249F940)
+            const fsetScale = new NativeFunction(setScale,"void",["pointer","float","float","float"])
              
-                fsetScale(transform,0.6,0.6,0.6)
+            fsetScale(transform,0.6,0.6,0.6)
                
        
-            }else{
+        }else{
 
-            }
         }
-    })
+    }
+})
 
+     
+
+        
     }
 
 }
@@ -942,29 +945,21 @@ const option6 = {
     
       }
     })
-    
-    }
+
+
+        
+        
+    },
 
     off() {
+
+
         
         
     }
 }
 
 
-
-const option7 = {
-
-    on() {
-    
-    console.log("oi")
-    
-    }
-
-    off() {
-    
-    }
-}
 
 
 
@@ -1011,10 +1006,7 @@ Java.perform(function () {
         menu.addOption("option5", "GIANT ENEMY", option5)
         
         menu.addOption("option6", "GET FUEL/COIN", option6)
-        
-        menu.addOption("option7", "TP EXTRACAO", option7)
-        
-        
+
     // Endere莽o base para modificar vida e estamina
         const baseAddress = Module.getBaseAddress("libil2cpp.so").add(0x688670);
 
