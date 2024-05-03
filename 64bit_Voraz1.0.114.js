@@ -887,27 +887,6 @@ Interceptor.attach(LibBaseFuelCoin,{
         menu.addOption("option5", "NO FOG", {
             on: function () {
                 // Add actions when the option is turned on
-                const RenderSettings = Module.getBaseAddress("libil2cpp.so").add(0x22A0EDC)
-Interceptor.attach(RenderSettings,{
-  onEnter(args){
-
-
-
-const fog =  Module.getBaseAddress("libil2cpp.so").add(0x22A0DB0)
-const setFog = new NativeFunction(fog,"void",["pointer","bool"])
-
-  setFog(args[0],0)
-
-  
-const fogstart =  Module.getBaseAddress("libil2cpp.so").add(0x22A0DB0)
-const setFogstatr = new NativeFunction(fog,"void",["pointer","float"])
-
-  setFogstatr(args[0],100000000000)
-
-
-  }
-})?
-
                 
 
             },
