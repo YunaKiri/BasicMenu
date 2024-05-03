@@ -798,9 +798,27 @@ Java.perform(function () {
         menu.addOption("option4", "NO RECOIL", {
             on: function () {
                 // Add actions when the option is turned on
+                const semrecoil = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+        Interceptor.attach(semrecoil,{
+          onEnter(args){
+        
+         args[0].add(0x24).readPointer().add(0x2C).readPointer().add(0x18).readPointer().add(0x20).writeFloat(0)
+         args[0].add(0x24).readPointer().add(0x2C).readPointer().add(0x18).readPointer().add(0x24).writeFloat(0)
+         args[0].add(0x24).readPointer().add(0x2C).readPointer().add(0x18).readPointer().add(0x28).writeFloat(0)
+          }
+        })
             },
             off: function () {
                 // Add actions when the option is turned off
+                const semrecoil = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+        Interceptor.attach(semrecoil,{
+          onEnter(args){
+        
+         args[0].add(0x24).readPointer().add(0x2C).readPointer().add(0x18).readPointer().add(0x20).writeFloat(0.20000000298023224)
+         args[0].add(0x24).readPointer().add(0x2C).readPointer().add(0x18).readPointer().add(0x24).writeFloat(0.5)
+         args[0].add(0x24).readPointer().add(0x2C).readPointer().add(0x18).readPointer().add(0x28).writeFloat(0)
+          }
+        })
             }
         })
         
@@ -810,18 +828,60 @@ Java.perform(function () {
         menu.addOption("option5", "CENTER CITY", {
             on: function () {
                 // Add actions when the option is turned on
+                const baselib2 = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+
+                    Interceptor.attach(baselib2,{
+
+                        onEnter(args){
+
+                            const compponent =  Module.getBaseAddress("libil2cpp.so").add(0x24909C0)
+                            const fcompponent = new NativeFunction(compponent,"pointer",["pointer"])
+    
+                            let transform =  fcompponent(args[0])
+    
+           
+                            const setPosition = Module.getBaseAddress("libil2cpp.so").add(0x249E90C)
+                            const fsetPosition = new NativeFunction(setPosition,"void",["pointer","float","float","float"])
+             
+                            fsetPosition(transform,453.8675842285156,116.40999603271484,498.30303955078125)
+
+                        }
+                    })
             },
             off: function () {
                 // Add actions when the option is turned off
+                const baselib2 = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+                      Interceptor.detachAll();
             }
         })
         
         menu.addOption("option6", "EXTRAÇÃO", {
             on: function () {
                 // Add actions when the option is turned on
+                const baselib = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+
+                    Interceptor.attach(baselib,{
+
+                        onEnter(args){
+
+                            const compponent =  Module.getBaseAddress("libil2cpp.so").add(0x24909C0)
+                            const fcompponent = new NativeFunction(compponent,"pointer",["pointer"])
+    
+                            let transform =  fcompponent(args[0])
+    
+           
+                            const setPosition = Module.getBaseAddress("libil2cpp.so").add(0x249E90C)
+                            const fsetPosition = new NativeFunction(setPosition,"void",["pointer","float","float","float"])
+             
+                            fsetPosition(transform,154.3650360107422,113.21358489990234,485.50927734375)
+
+                        }
+                    })
             },
             off: function () {
                 // Add actions when the option is turned off
+                const baselib = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+                      Interceptor.detachAll();
             }
         })
         
