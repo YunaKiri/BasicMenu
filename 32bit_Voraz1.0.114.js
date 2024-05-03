@@ -694,7 +694,7 @@ Java.perform(function () {
         menu.createMenuStart("⚙️", 30, "#FFFFFF")
 
         // Set the menu layout color and size.
-        menu.createMenuLayout("#333333", 350)
+        menu.createMenuLayout("#333333", 250)
 
         // Set the menu bar color.
         menu.createMenuBarLayout("#000000")
@@ -705,55 +705,12 @@ Java.perform(function () {
         // Set the color of on and off options.
         menu.createMenuOptionsLayout("#00FF00", "#CCCCCC")
 
+
         // Add options
-        menu.addOption("option1", "Visual", {
-            on: function () {
-                // Add actions when the option is turned on
-            },
-            off: function () {
-                // Add actions when the option is turned off
-            }
-        })
-
-        menu.addOption("option2", "Extra", {
-            on: function () {
-                // Add actions when the option is turned on
-            },
-            off: function () {
-                // Add actions when the option is turned off
-            }
-        })
-
-        // Add sub-options for the "Visual" menu
-        menu.addOption("option3", "Roupa", {
-            on: function () {
-                // Add actions when the option is turned on
-            },
-            off: function () {
-                // Add actions when the option is turned off
-            }
-        })
-
-        menu.addOption("option4", "Armas", {
-            on: function () {
-                // Add actions when the option is turned on
-            },
-            off: function () {
-                // Add actions when the option is turned off
-            }
-        })
-
-        // Add sub-options for the "Extra" menu
-        menu.addOption("option5", "Fuel", {
-            on: function () {
-                // Add actions when the option is turned on
-            },
-            off: function () {
-                // Add actions when the option is turned off
-            }
-        })
-
-        menu.addOption("option6", "Coin", {
+        
+        menu.addText("MENU PLAYER", 16, "#FFFFFF");
+        
+        menu.addOption("option1", "GOD MOD", {
             on: function () {
                 // Add actions when the option is turned on
             },
@@ -762,7 +719,10 @@ Java.perform(function () {
             }
         })
         
-        menu.addOption("option7", "Coin", {
+        
+        menu.addText(" MENU WEAPON", 16, "#FFFFFF");
+
+        menu.addOption("option2", "NO RECOIL", {
             on: function () {
                 // Add actions when the option is turned on
             },
@@ -771,25 +731,10 @@ Java.perform(function () {
             }
         })
         
-        menu.addOption("option8", "Coin", {
-            on: function () {
-                // Add actions when the option is turned on
-            },
-            off: function () {
-                // Add actions when the option is turned off
-            }
-        })
         
-        menu.addOption("option9", "Coin", {
-            on: function () {
-                // Add actions when the option is turned on
-            },
-            off: function () {
-                // Add actions when the option is turned off
-            }
-        })
+        menu.addText("MENU TELEPORT", 16, "#FFFFFF");
         
-        menu.addOption("option10", "Coin", {
+        menu.addOption("option2", "NO RECOIL", {
             on: function () {
                 // Add actions when the option is turned on
             },
@@ -797,15 +742,7 @@ Java.perform(function () {
                 // Add actions when the option is turned off
             }
         })
-        
-        menu.addOption("option11", "Coin", {
-            on: function () {
-                // Add actions when the option is turned on
-            },
-            off: function () {
-                // Add actions when the option is turned off
-            }
-        })
+
         
             // Endere莽o base para modificar vida e estamina
         const baseAddress = Module.getBaseAddress("libil2cpp.so").add(0x688670);
