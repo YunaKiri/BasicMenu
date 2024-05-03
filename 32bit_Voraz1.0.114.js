@@ -256,19 +256,14 @@ class Menu {
 
 
 
-    createMenuBarTitle(title, color) {
-
-        const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(this.#WRAP_CONTENT, this.#WRAP_CONTENT)
-
-        this.#menuBarTitle = this.#classLoader.TextView.$new(this.#activity)
-
-        this.#menuBarTitle.setLayoutParams(layoutParams)
-
-        this.#menuBarTitle.setText(this.#classLoader.String.$new(title))
-
-        this.#menuBarTitle.setTextColor(this.#classLoader.Color.parseColor(color))
-
-    }
+createMenuBarTitle(title, color, size) {
+    const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(this.#WRAP_CONTENT, this.#WRAP_CONTENT);
+    this.#menuBarTitle = this.#classLoader.TextView.$new(this.#activity);
+    this.#menuBarTitle.setLayoutParams(layoutParams);
+    this.#menuBarTitle.setText(this.#classLoader.String.$new(title));
+    this.#menuBarTitle.setTextColor(this.#classLoader.Color.parseColor(color));
+    this.#menuBarTitle.setTextSize(size); // Adiciona o tamanho do texto
+}
 
 
 
@@ -694,13 +689,13 @@ Java.perform(function () {
         menu.createMenuStart("⚙️", 30, "#FFFFFF")
 
         // Set the menu layout color and size.
-        menu.createMenuLayout("#333333", 250)
+        menu.createMenuLayout("#333333", 350)
 
         // Set the menu bar color.
         menu.createMenuBarLayout("#000000")
 
         // Set the name and name color.
-        menu.createMenuBarTitle("____VORAZ MENU____", "#FFFFFF");
+        menu.createMenuBarTitle("VORAZ MENU", "#FFFFFF", 30);
 
         // Set the color of on and off options.
         menu.createMenuOptionsLayout("#00FF00", "#CCCCCC")
@@ -742,6 +737,10 @@ Java.perform(function () {
                 // Add actions when the option is turned off
             }
         })
+        
+        menu.addText("MENU LIFE | ESTAMINA", 16, "#FFFFFF");
+        
+        
 
         
             // Endere莽o base para modificar vida e estamina
