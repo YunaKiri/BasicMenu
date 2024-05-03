@@ -768,27 +768,77 @@ Java.perform(function () {
         menu.addOption("option1", "GOD MOD", {
             on: function () {
                 // Add actions when the option is turned on
+                const morto = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+
+Interceptor.attach(morto,{
+  onEnter(args){
+  
+  args[0].add(0x18).readPointer().add(0x48).writeU8(1)
+  
+  }
+})
             },
             off: function () {
                 // Add actions when the option is turned off
+                
+                const morto = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+
+Interceptor.attach(morto,{
+  onEnter(args){
+  
+  args[0].add(0x18).readPointer().add(0x48).writeU8(0)
+  
+  }
+})
             }
         })
         
         menu.addOption("option2", "KILL ALL ZOMBIE", {
             on: function () {
                 // Add actions when the option is turned on
+                const playerStats = Module.getBaseAddress("libil2cpp.so").add(0x60397C)
+        Interceptor.attach(playerStats,{
+          onEnter(args){
+        
+         const enemyHealth = args[0].add(0x10).readPointer().add(0x14).readPointer()
+        
+         const die = Module.getBaseAddress("libil2cpp.so").add(0x5FE69C)
+         const fDie = new NativeFunction(die,"void",["pointer"])
+        
+         fDie(enemyHealth)
+        
+        
+         }
+        })
             },
             off: function () {
                 // Add actions when the option is turned off
+                const playerStats = Module.getBaseAddress("libil2cpp.so").add(0x60397C)
+      Interceptor.detachAll();
             }
         })
         
         menu.addOption("option3", "KILL ME", {
             on: function () {
                 // Add actions when the option is turned on
+                const playerStats3 = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+        Interceptor.attach(playerStats3,{
+          onEnter(args){
+       
+          const diePlayer = args[0].add(0x18).readPointer()
+          const dieYou = Module.getBaseAddress("libil2cpp.so").add(0x697F3C)
+          const fdieYou = new NativeFunction(dieYou,"void",["pointer"])
+        
+          fdieYou(diePlayer)
+      
+      
+          }
+        })
             },
             off: function () {
                 // Add actions when the option is turned off
+                const playerStats3 = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+      Interceptor.detachAll();
             }
         })
         
