@@ -867,7 +867,7 @@ Interceptor.attach(baselib,{
             const setScale = Module.getBaseAddress("libil2cpp.so").add(0x249F940)
             const fsetScale = new NativeFunction(setScale,"void",["pointer","float","float","float"])
              
-            fsetScale(transform,4.6,45.0,4.6)
+            fsetScale(transform,2.6,35.0,2.6)
                
        
         }else{
@@ -904,7 +904,7 @@ Interceptor.attach(baselib,{
             const setScale = Module.getBaseAddress("libil2cpp.so").add(0x249F940)
             const fsetScale = new NativeFunction(setScale,"void",["pointer","float","float","float"])
              
-            fsetScale(transform,0.6,0.6,0.6)
+            fsetScale(transform,1.5,1.5,1.5)
                
        
         }else{
