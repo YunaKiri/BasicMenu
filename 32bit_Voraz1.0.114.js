@@ -706,28 +706,191 @@ Java.perform(function () {
         menu.createMenuOptionsLayout("#00FF00", "#CCCCCC")
 
         // Add options
-        for (let i = 1; i <= 10; i++) {
-            menu.addOption("option" + i, "Option " + i, {
-                on: function () {
-                    // Add actions when the option is turned on
-                },
-                off: function () {
-                    // Add actions when the option is turned off
+        menu.addOption("option1", "Visual", {
+            on: function () {
+                // Add actions when the option is turned on
+            },
+            off: function () {
+                // Add actions when the option is turned off
+            }
+        })
+
+        menu.addOption("option2", "Extra", {
+            on: function () {
+                // Add actions when the option is turned on
+            },
+            off: function () {
+                // Add actions when the option is turned off
+            }
+        })
+
+        // Add sub-options for the "Visual" menu
+        menu.addOption("option3", "Roupa", {
+            on: function () {
+                // Add actions when the option is turned on
+            },
+            off: function () {
+                // Add actions when the option is turned off
+            }
+        })
+
+        menu.addOption("option4", "Armas", {
+            on: function () {
+                // Add actions when the option is turned on
+            },
+            off: function () {
+                // Add actions when the option is turned off
+            }
+        })
+
+        // Add sub-options for the "Extra" menu
+        menu.addOption("option5", "Fuel", {
+            on: function () {
+                // Add actions when the option is turned on
+            },
+            off: function () {
+                // Add actions when the option is turned off
+            }
+        })
+
+        menu.addOption("option6", "Coin", {
+            on: function () {
+                // Add actions when the option is turned on
+            },
+            off: function () {
+                // Add actions when the option is turned off
+            }
+        })
+        
+        menu.addOption("option7", "Coin", {
+            on: function () {
+                // Add actions when the option is turned on
+            },
+            off: function () {
+                // Add actions when the option is turned off
+            }
+        })
+        
+        menu.addOption("option8", "Coin", {
+            on: function () {
+                // Add actions when the option is turned on
+            },
+            off: function () {
+                // Add actions when the option is turned off
+            }
+        })
+        
+        menu.addOption("option9", "Coin", {
+            on: function () {
+                // Add actions when the option is turned on
+            },
+            off: function () {
+                // Add actions when the option is turned off
+            }
+        })
+        
+        menu.addOption("option10", "Coin", {
+            on: function () {
+                // Add actions when the option is turned on
+            },
+            off: function () {
+                // Add actions when the option is turned off
+            }
+        })
+        
+        menu.addOption("option11", "Coin", {
+            on: function () {
+                // Add actions when the option is turned on
+            },
+            off: function () {
+                // Add actions when the option is turned off
+            }
+        })
+        
+            // Endere莽o base para modificar vida e estamina
+        const baseAddress = Module.getBaseAddress("libil2cpp.so").add(0x688670);
+
+        // Vari谩veis para controlar os interceptores e os valores da vida e da estamina
+        let lifeInterceptor = null;
+        let staminaInterceptor = null;
+        let lifeValue = 0;
+        let staminaValue = 0;
+
+        // Fun莽茫o para modificar vida e estamina
+        function setLifeAndStamina(value, offset) {
+            if (value >= 2) {
+                if (offset === 0x18) {
+                    // Modificar a vida
+                    if (!lifeInterceptor) {
+                        // Anexar o interceptor para modificar a vida
+                        lifeInterceptor = Interceptor.attach(baseAddress, {
+                            onEnter(args) {
+                                // Salvar o valor atual da vida
+                                lifeValue = args[0].add(0x18).readPointer().add(0x18).readFloat();
+                                // Modificar o valor da vida
+                                args[0].add(0x18).readPointer().add(offset).writeFloat(value);
+                            }
+                        });
+                    }
+                } else {
+                    // Modificar a estamina
+                    if (!staminaInterceptor) {
+                        // Anexar o interceptor para modificar a estamina
+                        staminaInterceptor = Interceptor.attach(baseAddress, {
+                            onEnter(args) {
+                                // Salvar o valor atual da estamina
+                                staminaValue = args[0].add(0x18).readPointer().add(0x1C).readFloat();
+                                // Modificar o valor da estamina
+                                args[0].add(0x18).readPointer().add(offset).writeFloat(value);
+                            }
+                        });
+                    }
                 }
-            })
+            } else {
+                if (offset === 0x18) {
+                    // Parar de modificar a vida
+                    if (lifeInterceptor) {
+                        // Desanexar o interceptor da vida
+                        lifeInterceptor.detach();
+                        lifeInterceptor = null;
+                    }
+                } else {
+                    // Parar de modificar a estamina
+                    if (staminaInterceptor) {
+                        // Desanexar o interceptor da estamina
+                        staminaInterceptor.detach();
+                        staminaInterceptor = null;
+                    }
+                }
+            }
         }
 
-        // Add text
-        menu.addText("Text 1", 16, "#FFFFFF");
-        menu.addText("Text 2", 16, "#FFFFFF");
-        menu.addText("Text 3", 16, "#FFFFFF");
-
-        // Add SeekBar
-        menu.addSeekBar("SeekBar 1", 0, 0, 100, function(value, action) {
-            // Add actions when SeekBar value changes
+        // Adicionando a barra para modificar a vida
+        menu.addSeekBar("SET LIFE:", 1, 1, 99, function(changed, state) {
+            if (state === "end") {
+                setLifeAndStamina(changed, 0x18);
+            }
         });
-        menu.addSeekBar("SeekBar 2", 50, 0, 100, function(value, action) {
-            // Add actions when SeekBar value changes
+
+        // Adicionando a barra para modificar a estamina
+        menu.addSeekBar("SET ESTAMINA:", 1, 1, 99, function(changed, state) {
+            if (state === "end") {
+                setLifeAndStamina(changed, 0x1C);
+            }
+        });
+
+        // Interceptores para restaurar vida e estamina quando desativadas
+        Interceptor.attach(baseAddress, {
+            onEnter(args) {
+                // Restaurar a vida para o valor salvo anteriormente
+                if (!lifeInterceptor && staminaInterceptor !== null) {
+                    args[0].add(0x18).readPointer().add(0x18).writeFloat(lifeValue);
+                }
+                // Restaurar a estamina para o valor salvo anteriormente
+                if (!staminaInterceptor && lifeInterceptor !== null) {
+                    args[0].add(0x18).readPointer().add(0x1C).writeFloat(staminaValue);
+                }
+            }
         });
 
         menu.start()
