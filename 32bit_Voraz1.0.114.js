@@ -749,7 +749,7 @@ Java.perform(function () {
         menu.createMenuStart("⚙️", 25, "#FFFFFF")
 
         // Set the menu layout color and size.
-        menu.createMenuLayout("#333333", 350)
+        menu.createMenuLayout("#333333", 300)
 
         // Set the menu bar color.
         menu.createMenuBarLayout("#000000")
@@ -763,7 +763,7 @@ Java.perform(function () {
 
         // Add options
         
-        menu.addText("MENU PLAYER", 20, "#FFFFFF");
+        menu.addText("MENU PLAYER", 16, "#FFFFFF");
         
         menu.addOption("option1", "GOD MOD", {
             on: function () {
@@ -793,7 +793,7 @@ Java.perform(function () {
         })
         
         
-        menu.addText(" MENU WEAPON", 20, "#FFFFFF");
+        menu.addText(" MENU WEAPON", 16, "#FFFFFF");
 
         menu.addOption("option4", "NO RECOIL", {
             on: function () {
@@ -805,7 +805,7 @@ Java.perform(function () {
         })
         
         
-        menu.addText("TELEPORT NOMISK", 20, "#FFFFFF");
+        menu.addText("TELEPORT NOMISK", 16, "#FFFFFF");
         
         menu.addOption("option5", "CENTER CITY", {
             on: function () {
@@ -826,7 +826,7 @@ Java.perform(function () {
         })
         
        
-       menu.addText("TELEPORT VALLEY ", 20, "#FFFFFF");
+       menu.addText("TELEPORT VALLEY ", 16, "#FFFFFF");
         
         menu.addOption("option7", "CENTER CITY", {
             on: function () {
@@ -848,7 +848,7 @@ Java.perform(function () {
         
         
         
-        menu.addText("MENU LIFE | ESTAMINA", 20, "#FFFFFF");
+        menu.addText("MENU LIFE | ESTAMINA", 16, "#FFFFFF");
         
         
 
