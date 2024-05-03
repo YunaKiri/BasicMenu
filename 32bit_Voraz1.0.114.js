@@ -945,91 +945,16 @@ const option6 = {
     
       }
     })
-         
+
+
+        
+        
     },
 
     off() {
 
 
         
-        
-    }
-}
-
-
-
-
-    const option7 = {
-
-    on() {
-    
-    const baselib = Module.getBaseAddress("libil2cpp.so").add(0x688670)
-
-    Interceptor.attach(baselib,{
-
-        onEnter(args){
-
-            const compponent =  Module.getBaseAddress("libil2cpp.so").add(0x24909C0)
-            const fcompponent = new NativeFunction(compponent,"pointer",["pointer"])
-    
-            let transform =  fcompponent(args[0])
-    
-           
-            const setPosition = Module.getBaseAddress("libil2cpp.so").add(0x249E90C)
-            const fsetPosition = new NativeFunction(setPosition,"void",["pointer","float","float","float"])
-             
-            fsetPosition(transform,154.3650360107422,113.21358489990234,485.50927734375)
-
-        }
-    })
-    
-    
-         
-    }
-
-    off() {
-    
-    const baselib = Module.getBaseAddress("libil2cpp.so").add(0x688670)
-      Interceptor.detachAll();
-
-
-        
-    }
-}
-
-
-
-
-const option8 = {
-
-    on() {
-    
-    const baselib2 = Module.getBaseAddress("libil2cpp.so").add(0x688670)
-
-    Interceptor.attach(baselib2,{
-
-        onEnter(args){
-
-            const compponent =  Module.getBaseAddress("libil2cpp.so").add(0x24909C0)
-            const fcompponent = new NativeFunction(compponent,"pointer",["pointer"])
-    
-            let transform =  fcompponent(args[0])
-    
-           
-            const setPosition = Module.getBaseAddress("libil2cpp.so").add(0x249E90C)
-            const fsetPosition = new NativeFunction(setPosition,"void",["pointer","float","float","float"])
-             
-            fsetPosition(transform,453.8675842285156,116.40999603271484,498.30303955078125)
-
-        }
-    })
-    
-    }
-
-    off() {
-    
-    const baselib2 = Module.getBaseAddress("libil2cpp.so").add(0x688670)
-      Interceptor.detachAll();
         
     }
 }
@@ -1050,7 +975,7 @@ Java.perform(function () {
 
         //set name and color that will appear with the menu minimized.
 
-        menu.createMenuStart("TEST", 30, "#FFFFFF")
+        menu.createMenuStart("饟啢", 30, "#FFFFFF")
 
         //set menu layout color and size
 
@@ -1062,7 +987,7 @@ Java.perform(function () {
 
         //name and name color
 
-        menu.createMenuBarTitle("____ VORAZ MENU ____", "#FFFFFF");
+        menu.createMenuBarTitle("____饟啢 VORAZ MENU 饟啢____", "#FFFFFF");
 
         //set color of on and off options.
 
@@ -1081,10 +1006,6 @@ Java.perform(function () {
         menu.addOption("option5", "GIANT ENEMY", option5)
         
         menu.addOption("option6", "GET FUEL/COIN", option6)
-        
-        menu.addOption("option7", "TP EXTRACAO [nomisk]", option7)
-        
-        menu.addOption("option8", "TP CENTER CITY [nomisk]", option8)
 
     // Endere莽o base para modificar vida e estamina
         const baseAddress = Module.getBaseAddress("libil2cpp.so").add(0x688670);
