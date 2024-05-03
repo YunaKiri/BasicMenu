@@ -967,29 +967,7 @@ const option7 = {
 
     on() {
     
-    
-    
-      
-    
-        
-    }
-
-    off() {
-    
-       
-             
-    }
-}
-
-
-
-
-
-const option8 = {
-
-    on() {
-    
-    
+    console.log("oi")
     
       
     
@@ -1055,8 +1033,7 @@ Java.perform(function () {
         
         menu.addOption("option7", "TP EXTRACAO (nomisk)", option7)
         
-        menu.addOption("option8", "TP CENTER CITY (nomisk)", option8)
-
+        
     // Endere莽o base para modificar vida e estamina
         const baseAddress = Module.getBaseAddress("libil2cpp.so").add(0x688670);
 
