@@ -853,11 +853,33 @@ args[0].add(0x30).readPointer().add(0x54).writeU8(0)
         menu.addOption("option4", "GET FUEL | COIN", {
             on: function () {
                 // Add actions when the option is turned on
+                const LibBaseFuelCoin = Module.getBaseAddress("libil2cpp.so").add(0xAB63FC)
+   
+Interceptor.attach(LibBaseFuelCoin,{
+    
+    onEnter(args){
+
+    const getFuel =  Module.getBaseAddress("libil2cpp.so").add(0xAB22A0)
+    const fgetFuel = new NativeFunction(getFuel,"void",["pointer"])
+
+    fgetFuel(args[0])
+   
+    const getMoney =  Module.getBaseAddress("libil2cpp.so").add(0xAB210C)
+    const fgetMoney = new NativeFunction(getMoney,"void",["pointer"])
+
+    fgetMoney(args[0])
+    
+
+    
+    }
+})
           
 
             },
             off: function () {
                 // Add actions when the option is turned off
+                const LibBaseFuelCoin = Module.getBaseAddress("libil2cpp.so").add(0xAB63FC);
+                  Interceptor.detachAll();
                         
             }
         })
