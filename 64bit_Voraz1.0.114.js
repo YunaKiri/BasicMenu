@@ -1,3 +1,4 @@
+
 function getClassLoader() {
 
     const classLoader = {
@@ -857,123 +858,13 @@ const option4 = {
 
 }
 
-const option5 = {
-
-    on() {
-
-    
-const LibBaseFuelCoin = Module.getBaseAddress("libil2cpp.so").add(0xAB63FC)
-   
-Interceptor.attach(LibBaseFuelCoin,{
-    
-    onEnter(args){
-
-    const getFuel =  Module.getBaseAddress("libil2cpp.so").add(0xAB22A0)
-    const fgetFuel = new NativeFunction(getFuel,"void",["pointer"])
-
-    fgetFuel(args[0])
-   
-    const getMoney =  Module.getBaseAddress("libil2cpp.so").add(0xAB210C)
-    const fgetMoney = new NativeFunction(getMoney,"void",["pointer"])
-
-    fgetMoney(args[0])
-    
-
-    
-    }
-})
-
-
-          
-    },
-
-    off() {
-
-     const LibBaseFuelCoin = Module.getBaseAddress("libil2cpp.so").add(0xAB63FC);
-        Interceptor.detachAll();
-
-        
-      }
-
-    }
 
 
 
-  const option6 = {
+  
 
-    on() {
 
-    
-const baselib = Module.getBaseAddress("libil2cpp.so").add(0xA9C668)
 
-Interceptor.attach(baselib,{
-
-    onEnter(args){
-
-        const phontomView = args[0].add(0x18).readPointer().add(0x60).readU8()
-         
-        const isMine =  Module.getBaseAddress("libil2cpp.so").add(0x1AA3D88)
-        const fIsMine = new NativeFunction(isMine,"bool",["pointer"])
-
-        if(phontomView == false){
-
-            const compponent =  Module.getBaseAddress("libil2cpp.so").add(0x22B012C)
-            const fcompponent = new NativeFunction(compponent,"pointer",["pointer"])
-    
-            let transform =  fcompponent(args[0])
-    
-           
-            const setScale = Module.getBaseAddress("libil2cpp.so").add(0x22BC270)
-            const fsetScale = new NativeFunction(setScale,"void",["pointer","float","float","float"])
-             
-            fsetScale(transform,4.6,45.0,4.6)
-
-            
-               
-       
-        }else{
-
-        }
-    }
-})
-
-          
-    },
-
-    off() {
-
-const baselib = Module.getBaseAddress("libil2cpp.so").add(0xA9C668)
-
-Interceptor.attach(baselib,{
-
-    onEnter(args){
-
-        const phontomView = args[0].add(0x18).readPointer().add(0x60).readU8()
-         
-        const isMine =  Module.getBaseAddress("libil2cpp.so").add(0x1AA3D88)
-        const fIsMine = new NativeFunction(isMine,"bool",["pointer"])
-
-        if(phontomView == false){
-
-            const compponent =  Module.getBaseAddress("libil2cpp.so").add(0x22B012C)
-            const fcompponent = new NativeFunction(compponent,"pointer",["pointer"])
-    
-            let transform =  fcompponent(args[0])
-    
-           
-            const setScale = Module.getBaseAddress("libil2cpp.so").add(0x22BC270)
-            const fsetScale = new NativeFunction(setScale,"void",["pointer","float","float","float"])
-             
-            fsetScale(transform,0.6,0.6,0.6)
-
-            
-               
-     }else{
-
-   }
-  }
-    }
-  }
 
 
 
@@ -1014,17 +905,17 @@ Java.perform(function () {
 
         //id, name and object with on and off functions
 
-        menu.addOption("option1", "GOD MOD", option1)
+   
         
-        menu.addOption("option2", "KILL ALL ZOMBIE", option2)
+        menu.addOption("option1", "KILL ALL ZOMBIE", option1)
 
-        menu.addOption("option3", "NO RECOIL", option3)
+        menu.addOption("option2", "NO RECOIL", option2)
         
-        menu.addOption("option4", "KILL ME", option4)
-      
-        menu.addOption("option5", "ADD COINS AND FUEL", option5)
+        menu.addOption("option3", "KILL ME", option3)
+
         
-        menu.addOption("option6", "GIANT PLAYER", option6)
+    
+
     
 // Endereço base para modificar vida e estamina
         const baseAddress = Module.getBaseAddress("libil2cpp.so").add(0xA9C668);
