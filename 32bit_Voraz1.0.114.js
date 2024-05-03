@@ -1,366 +1,133 @@
-function getClassLoader() {
-
-    const classLoader = {
-
-        Gravity: Java.use("android.view.Gravity"),
-
-        TextView: Java.use("android.widget.TextView"),
-
-        LinearLayout: Java.use("android.widget.LinearLayout"),
-
-        ViewGroup_LayoutParams: Java.use("android.view.ViewGroup$LayoutParams"),
-
-        LinearLayout_LayoutParams: Java.use("android.widget.LinearLayout$LayoutParams"),
-
-        Color: Java.use("android.graphics.Color"),
-
-        ActivityThread: Java.use("android.app.ActivityThread"),
-
-        ActivityThread_ActivityClientRecord: Java.use("android.app.ActivityThread$ActivityClientRecord"),
-
-        View_OnTouchListener: Java.use("android.view.View$OnTouchListener"),
-
-        MotionEvent: Java.use("android.view.MotionEvent"),
-
-        String: Java.use("java.lang.String"),
-
-        ScrollView: Java.use("android.widget.ScrollView"),
-
-        View_OnClickListener: Java.use("android.view.View$OnClickListener"),
-
-        SeekBar: Java.use("android.widget.SeekBar") // Adicionando definição para SeekBar
-
-    }
-
-    return classLoader
-
-}
-
-
-
-function pixelDensityToPixels(context, dp) {
-
-    const density = context.getResources().getDisplayMetrics().density.value
-
-    return parseInt(dp * density)
-
-}
-
-
-
-function getMainActivity(classLoader) {
-
-    const activityThread = classLoader.ActivityThread.sCurrentActivityThread.value
-
-    const mActivities = activityThread.mActivities.value
-
-    const activityClientRecord = Java.cast(mActivities.valueAt(0), classLoader.ActivityThread_ActivityClientRecord)
-
-    return activityClientRecord.activity.value
-
-}
-
-
-
-class Menu {
+class RadialMenu {
 
     #classLoader
-
     #activity
-
-    #MATCH_PARENT
-
-    #WRAP_CONTENT
-
-    #mainLayout
-
-    #leftMenuLayout
-
-    #rightMenuLayout
-
-    #leftMenuButtons
-
-    #rightMenuOptions
-
-
+    #contentView
+    #menuButton
+    #menuLayout
+    #options
+    #colorOn
+    #colorOff
+    #menuOpen
 
     constructor(classLoader, activity) {
-
         this.#classLoader = classLoader
-
         this.#activity = activity
-
-        this.#MATCH_PARENT = classLoader.LinearLayout_LayoutParams.MATCH_PARENT.value
-
-        this.#WRAP_CONTENT = classLoader.LinearLayout_LayoutParams.WRAP_CONTENT.value
-
-        this.#leftMenuButtons = []
-
-        this.#rightMenuOptions = {}
-
-        this.#createMainLayout()
-
+        this.#options = []
+        this.#colorOn = "#00FF00"
+        this.#colorOff = "#CCCCCC"
+        this.#menuOpen = false
+        this.#createContentView()
+        this.#createMenuButton()
+        this.#createMenuLayout()
     }
 
-
-
-    #createMainLayout() {
-
-        const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(this.#MATCH_PARENT, this.#MATCH_PARENT)
-
-        this.#mainLayout = this.#classLoader.LinearLayout.$new(this.#activity)
-
-        this.#mainLayout.setLayoutParams(layoutParams)
-
-        this.#mainLayout.setOrientation(this.#classLoader.LinearLayout.HORIZONTAL.value)
-
-        this.#createLeftMenuLayout()
-
-        this.#createRightMenuLayout()
-
+    #createContentView() {
+        this.#contentView = this.#classLoader.LinearLayout.$new(this.#activity)
+        const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(this.#classLoader.ViewGroup_LayoutParams.MATCH_PARENT, this.#classLoader.ViewGroup_LayoutParams.MATCH_PARENT)
+        this.#contentView.setLayoutParams(layoutParams)
+        this.#contentView.setGravity(this.#classLoader.Gravity.CENTER.value)
+        this.#contentView.setBackgroundColor(this.#classLoader.Color.TRANSPARENT.value)
     }
 
-
-
-    #createLeftMenuLayout() {
-
-        const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(0, this.#MATCH_PARENT)
-
-        layoutParams.weight = 1
-
-        this.#leftMenuLayout = this.#classLoader.LinearLayout.$new(this.#activity)
-
-        this.#leftMenuLayout.setLayoutParams(layoutParams)
-
-        this.#leftMenuLayout.setOrientation(this.#classLoader.LinearLayout.VERTICAL.value)
-
+    #createMenuButton() {
+        this.#menuButton = this.#classLoader.TextView.$new(this.#activity)
+        const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(this.#classLoader.ViewGroup_LayoutParams.WRAP_CONTENT, this.#classLoader.ViewGroup_LayoutParams.WRAP_CONTENT)
+        this.#menuButton.setLayoutParams(layoutParams)
+        this.#menuButton.setText("⚙️")
+        this.#menuButton.setTextSize(30)
+        this.#menuButton.setTextColor(this.#classLoader.Color.WHITE.value)
+        this.#menuButton.setBackgroundColor(this.#classLoader.Color.BLACK.value)
+        this.#menuButton.setGravity(this.#classLoader.Gravity.CENTER.value)
+        const padding = pixelDensityToPixels(this.#activity, 10)
+        this.#menuButton.setPadding(padding, padding, padding, padding)
+        this.#menuButton.setOnClickListener(this.#createMenuClickListener())
     }
 
-
-
-    #createRightMenuLayout() {
-
-        const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(0, this.#MATCH_PARENT)
-
-        layoutParams.weight = 3
-
-        this.#rightMenuLayout = this.#classLoader.LinearLayout.$new(this.#activity)
-
-        this.#rightMenuLayout.setLayoutParams(layoutParams)
-
-        this.#rightMenuLayout.setOrientation(this.#classLoader.LinearLayout.VERTICAL.value)
-
-    }
-
-
-
-    createLeftMenuButton(id, text, textColor, backgroundColor) {
-
-        const button = this.#classLoader.TextView.$new(this.#activity)
-
-        button.setText(this.#classLoader.String.$new(text))
-
-        button.setTextColor(this.#classLoader.Color.parseColor(textColor))
-
-        button.setBackgroundColor(this.#classLoader.Color.parseColor(backgroundColor))
-
-        button.setPadding(20, 20, 20, 20)
-
-        button.setGravity(this.#classLoader.Gravity.CENTER.value)
-
-        button.setTextSize(18)
-
-        button.setOnClickListener(this.#createLeftMenuButtonClickEvent(id))
-
-        this.#leftMenuButtons.push({ id, button })
-
-    }
-
-
-
-    #createLeftMenuButtonClickEvent(id) {
-
+    #createMenuClickListener() {
         const classLoader = this.#classLoader
-
-        const rightMenuLayout = this.#rightMenuLayout
-
-        const rightMenuOptions = this.#rightMenuOptions
-
+        const activity = this.#activity
+        const menuLayout = this.#menuLayout
         return Java.registerClass({
-
-            name: "com.example.LeftMenuClickListener_" + id,
-
+            name: "com.example.MenuClickListener",
             implements: [classLoader.View_OnClickListener],
-
             methods: {
-
                 onClick(view) {
-
-                    rightMenuLayout.removeAllViews()
-
-                    const options = rightMenuOptions[id] || []
-
-                    options.forEach(option => {
-
-                        rightMenuLayout.addView(option)
-
-                    })
-
+                    if (!this.#menuOpen) {
+                        activity.addContentView(menuLayout, menuLayout.getLayoutParams())
+                        this.#menuOpen = true
+                    } else {
+                        activity.getWindow().getDecorView().removeView(menuLayout)
+                        this.#menuOpen = false
+                    }
                 }
-
             }
-
-        })
-
+        }).$new()
     }
 
+    #createMenuLayout() {
+        this.#menuLayout = this.#classLoader.LinearLayout.$new(this.#activity)
+        const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(this.#classLoader.ViewGroup_LayoutParams.WRAP_CONTENT, this.#classLoader.ViewGroup_LayoutParams.WRAP_CONTENT)
+        this.#menuLayout.setLayoutParams(layoutParams)
+        this.#menuLayout.setOrientation(this.#classLoader.LinearLayout.HORIZONTAL.value)
+        this.#menuLayout.setGravity(this.#classLoader.Gravity.CENTER.value)
+        this.#menuLayout.setBackgroundColor(this.#classLoader.Color.TRANSPARENT.value)
+        this.#menuLayout.setVisibility(this.#classLoader.View.GONE.value)
+        this.#createMenuOptions()
+    }
 
-
-    addRightMenuOption(leftMenuId, text, textColor, backgroundColor, callback) {
-
-        const option = this.#classLoader.TextView.$new(this.#activity)
-
-        option.setText(this.#classLoader.String.$new(text))
-
-        option.setTextColor(this.#classLoader.Color.parseColor(textColor))
-
-        option.setBackgroundColor(this.#classLoader.Color.parseColor(backgroundColor))
-
-        option.setPadding(20, 20, 20, 20)
-
-        option.setGravity(this.#classLoader.Gravity.CENTER.value)
-
-        option.setTextSize(16)
-
-        option.setOnClickListener(this.#createRightMenuOptionClickEvent(leftMenuId, callback))
-
-        if (!this.#rightMenuOptions[leftMenuId]) {
-
-            this.#rightMenuOptions[leftMenuId] = []
-
+    #createMenuOptions() {
+        for (let i = 0; i < 6; i++) {
+            const option = this.#classLoader.TextView.$new(this.#activity)
+            const optionSize = 100
+            const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(pixelDensityToPixels(this.#activity, optionSize), pixelDensityToPixels(this.#activity, optionSize))
+            const margin = pixelDensityToPixels(this.#activity, 10)
+            layoutParams.setMargins(margin, margin, margin, margin)
+            option.setLayoutParams(layoutParams)
+            option.setText("Option " + (i + 1))
+            option.setTextSize(20)
+            option.setTextColor(this.#classLoader.Color.parseColor(this.#colorOff))
+            option.setBackgroundColor(this.#classLoader.Color.parseColor(this.#colorOn))
+            option.setGravity(this.#classLoader.Gravity.CENTER.value)
+            option.setOnClickListener(this.#createOptionClickListener(i))
+            this.#menuLayout.addView(option)
+            this.#options.push(option)
         }
-
-        this.#rightMenuOptions[leftMenuId].push(option)
-
     }
 
-
-
-    #createRightMenuOptionClickEvent(leftMenuId, callback) {
-
-        return view => {
-
-            const text = view.getText().toString()
-
-            callback(text)
-
-        }
-
+    #createOptionClickListener(index) {
+        const classLoader = this.#classLoader
+        const colorOn = this.#colorOn
+        const colorOff = this.#colorOff
+        const options = this.#options
+        return Java.registerClass({
+            name: "com.example.OptionClickListener" + index,
+            implements: [classLoader.View_OnClickListener],
+            methods: {
+                onClick(view) {
+                    const option = options[index]
+                    if (option.getTextColor() === classLoader.Color.parseColor(colorOff)) {
+                        option.setTextColor(classLoader.Color.parseColor(colorOn))
+                    } else {
+                        option.setTextColor(classLoader.Color.parseColor(colorOff))
+                    }
+                }
+            }
+        }).$new()
     }
-
-
-
-    #drawMainLayout() {
-
-        this.#activity.setContentView(this.#mainLayout)
-
-    }
-
-
-
-    #drawLeftMenuLayout() {
-
-        this.#mainLayout.addView(this.#leftMenuLayout)
-
-        this.#leftMenuButtons.forEach(({ button }) => {
-
-            this.#leftMenuLayout.addView(button)
-
-        })
-
-    }
-
-
-
-    #drawRightMenuLayout() {
-
-        this.#mainLayout.addView(this.#rightMenuLayout)
-
-    }
-
-
 
     start() {
-
-        this.#drawMainLayout()
-
-        this.#drawLeftMenuLayout()
-
-        this.#drawRightMenuLayout()
-
+        const mainLayout = this.#classLoader.ActivityThread.currentActivity().getWindow().getDecorView()
+        mainLayout.addView(this.#contentView)
+        this.#contentView.addView(this.#menuButton)
     }
-
 }
 
-
-
 Java.perform(function () {
-
     Java.scheduleOnMainThread(function () {
-
         const classLoader = getClassLoader()
-
         const mainActivity = getMainActivity(classLoader)
-
-        const menu = new Menu(classLoader, mainActivity)
-
-        
-
-        // Adicionando botões de menu à esquerda
-
-        menu.createLeftMenuButton("visual", "Visual", "#FFFFFF", "#333333")
-
-        menu.createLeftMenuButton("extra", "Extra", "#FFFFFF", "#333333")
-
-        
-
-        // Adicionando opções de menu à direita para o botão "Visual"
-
-        menu.addRightMenuOption("visual", "Roupa", "#FFFFFF", "#444444", option => {
-
-            console.log("Opção selecionada:", option)
-
-        })
-
-        menu.addRightMenuOption("visual", "Sapato", "#FFFFFF", "#444444", option => {
-
-            console.log("Opção selecionada:", option)
-
-        })
-
-        
-
-        // Adicionando opções de menu à direita para o botão "Extra"
-
-        menu.addRightMenuOption("extra", "Fuel", "#FFFFFF", "#444444", option => {
-
-            console.log("Opção selecionada:", option)
-
-        })
-
-        menu.addRightMenuOption("extra", "Coin", "#FFFFFF", "#444444", option => {
-        console.log("Opção selecionada:", option)
-
-        })
-
-        
-
-        // Iniciar o menu
-
-        menu.start()
-
+        const radialMenu = new RadialMenu(classLoader, mainActivity)
+        radialMenu.start()
     })
-
-})
-
 })
