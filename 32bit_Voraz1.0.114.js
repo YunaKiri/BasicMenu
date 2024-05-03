@@ -675,6 +675,66 @@ createMenuBarTitle(title, color, size) {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Java.perform(function () {
 
     Java.scheduleOnMainThread(function () {
@@ -686,16 +746,16 @@ Java.perform(function () {
         const menu = new Menu(classLoader, mainActivity)
 
         // Set the title and color that will appear with the minimized menu.
-        menu.createMenuStart("⚙️", 30, "#FFFFFF")
+        menu.createMenuStart("⚙️", 25, "#FFFFFF")
 
         // Set the menu layout color and size.
-        menu.createMenuLayout("#333333", 350)
+        menu.createMenuLayout("#333333", 320)
 
         // Set the menu bar color.
         menu.createMenuBarLayout("#000000")
 
         // Set the name and name color.
-        menu.createMenuBarTitle("VORAZ MENU", "#FFFFFF", 30);
+        menu.createMenuBarTitle("____VORAZ MENU___", "#FFFFFF", 30);
 
         // Set the color of on and off options.
         menu.createMenuOptionsLayout("#00FF00", "#CCCCCC")
@@ -703,7 +763,7 @@ Java.perform(function () {
 
         // Add options
         
-        menu.addText("MENU PLAYER", 16, "#FFFFFF");
+        menu.addText("MENU PLAYER", 20, "#FFFFFF");
         
         menu.addOption("option1", "GOD MOD", {
             on: function () {
@@ -714,10 +774,28 @@ Java.perform(function () {
             }
         })
         
+        menu.addOption("option2", "KILL ALL ZOMBIE", {
+            on: function () {
+                // Add actions when the option is turned on
+            },
+            off: function () {
+                // Add actions when the option is turned off
+            }
+        })
         
-        menu.addText(" MENU WEAPON", 16, "#FFFFFF");
+        menu.addOption("option3", "KILL ME", {
+            on: function () {
+                // Add actions when the option is turned on
+            },
+            off: function () {
+                // Add actions when the option is turned off
+            }
+        })
+        
+        
+        menu.addText(" MENU WEAPON", 20, "#FFFFFF");
 
-        menu.addOption("option2", "NO RECOIL", {
+        menu.addOption("option4", "NO RECOIL", {
             on: function () {
                 // Add actions when the option is turned on
             },
@@ -727,9 +805,9 @@ Java.perform(function () {
         })
         
         
-        menu.addText("MENU TELEPORT", 16, "#FFFFFF");
+        menu.addText("MENU TELEPORT MAP NOMISK", 20, "#FFFFFF");
         
-        menu.addOption("option2", "NO RECOIL", {
+        menu.addOption("option5", "CENTER CITY", {
             on: function () {
                 // Add actions when the option is turned on
             },
@@ -738,7 +816,39 @@ Java.perform(function () {
             }
         })
         
-        menu.addText("MENU LIFE | ESTAMINA", 16, "#FFFFFF");
+        menu.addOption("option6", "EXTRAÇÃO", {
+            on: function () {
+                // Add actions when the option is turned on
+            },
+            off: function () {
+                // Add actions when the option is turned off
+            }
+        })
+        
+       
+       menu.addText("MENU TELEPORT MAP VALLEY ", 20, "#FFFFFF");
+        
+        menu.addOption("option7", "CENTER CITY", {
+            on: function () {
+                // Add actions when the option is turned on
+            },
+            off: function () {
+                // Add actions when the option is turned off
+            }
+        })
+        
+        menu.addOption("option8", "EXTRAÇÃO", {
+            on: function () {
+                // Add actions when the option is turned on
+            },
+            off: function () {
+                // Add actions when the option is turned off
+            }
+        })
+        
+        
+        
+        menu.addText("MENU LIFE | ESTAMINA", 20, "#FFFFFF");
         
         
 
