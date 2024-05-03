@@ -962,7 +962,7 @@ const option6 = {
 
 
 
-const option6 = {
+const option7 = {
 
     on() {
     console.log("9")
