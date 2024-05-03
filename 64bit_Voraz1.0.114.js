@@ -1023,7 +1023,8 @@ Java.perform(function () {
         menu.addOption("option4", "KILL ME", option4)
       
         menu.addOption("option5", "ADD COINS AND FUEL", option5)
-
+        
+        menu.addOption("option6", "GIANT PLAYER", option6)
     
 // Endereço base para modificar vida e estamina
         const baseAddress = Module.getBaseAddress("libil2cpp.so").add(0xA9C668);
