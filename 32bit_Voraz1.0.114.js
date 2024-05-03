@@ -963,30 +963,6 @@ const option6 = {
 
 
 
-const option7 = {
-
-    on() {
-    
-    console.log("oi")
-    
-      
-    
-        
-    }
-
-    off() {
-    
-       
-             
-    }
-}
-
-
-
-
-
-
-
 Java.perform(function () {
 
     Java.scheduleOnMainThread(function () {
@@ -1030,10 +1006,7 @@ Java.perform(function () {
         menu.addOption("option5", "GIANT ENEMY", option5)
         
         menu.addOption("option6", "GET FUEL/COIN", option6)
-        
-        menu.addOption("option7", "TP EXTRACAO (nomisk)", option7)
-        
-        
+
     // Endere莽o base para modificar vida e estamina
         const baseAddress = Module.getBaseAddress("libil2cpp.so").add(0x688670);
 
