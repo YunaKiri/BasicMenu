@@ -885,9 +885,81 @@ Interceptor.attach(LibBaseFuelCoin,{
         })
         
         
+        menu.addOption("option5", "GIANT PLAYER", {
+            on: function () {
+                // Add actions when the option is turned on
+                    const baselib = Module.getBaseAddress("libil2cpp.so").add(0xA9C668)
+
+      Interceptor.attach(baselib,{
+
+        onEnter(args){
+
+        const phontomView = args[0].add(0x18).readPointer().add(0x60).readU8()
+         
+        const isMine =  Module.getBaseAddress("libil2cpp.so").add(0x1AA3D88)
+        const fIsMine = new NativeFunction(isMine,"bool",["pointer"])
+
+        if(phontomView == false){
+
+            const compponent =  Module.getBaseAddress("libil2cpp.so").add(0x22B012C)
+            const fcompponent = new NativeFunction(compponent,"pointer",["pointer"])
+    
+            let transform =  fcompponent(args[0])
+    
+           
+            const setScale = Module.getBaseAddress("libil2cpp.so").add(0x22BC270)
+            const fsetScale = new NativeFunction(setScale,"void",["pointer","float","float","float"])
+             
+            fsetScale(transform,3.6,45.0,3.6)
+               
+       
+        }else{
+
+        }
+    }
+})
+
+            },
+            off: function () {
+                // Add actions when the option is turned off
+                    const baselib = Module.getBaseAddress("libil2cpp.so").add(0xA9C668)
+
+      Interceptor.attach(baselib,{
+
+        onEnter(args){
+
+        const phontomView = args[0].add(0x18).readPointer().add(0x60).readU8()
+         
+        const isMine =  Module.getBaseAddress("libil2cpp.so").add(0x1AA3D88)
+        const fIsMine = new NativeFunction(isMine,"bool",["pointer"])
+
+        if(phontomView == false){
+
+            const compponent =  Module.getBaseAddress("libil2cpp.so").add(0x22B012C)
+            const fcompponent = new NativeFunction(compponent,"pointer",["pointer"])
+    
+            let transform =  fcompponent(args[0])
+    
+           
+            const setScale = Module.getBaseAddress("libil2cpp.so").add(0x22BC270)
+            const fsetScale = new NativeFunction(setScale,"void",["pointer","float","float","float"])
+             
+            fsetScale(transform,1.6,1.6,1.6)
+               
+       
+        }else{
+
+        }
+    }
+})
+                        
+            }
+        })
+        
+        
         menu.addText(" MENU WEAPON", 16, "#FFFFFF");
 
-        menu.addOption("option5", "NO RECOIL", {
+        menu.addOption("option6", "NO RECOIL", {
             on: function () {
                 // Add actions when the option is turned on
                         const PlayerController = Module.getBaseAddress("libil2cpp.so").add(0xA9C668)
@@ -921,7 +993,7 @@ Interceptor.attach(LibBaseFuelCoin,{
         
         menu.addText("TELEPORT NOMISK", 16, "#FFFFFF");
         
-        menu.addOption("option6", "CENTER CITY", {
+        menu.addOption("option7", "CENTER CITY", {
             on: function () {
                 // Add actions when the option is turned on
                 const baselib = Module.getBaseAddress("libil2cpp.so").add(0xA9C668)
@@ -952,7 +1024,7 @@ Interceptor.attach(baselib,{
             }
         })
         
-        menu.addOption("option7", "EXTRACAO", {
+        menu.addOption("option8", "EXTRACAO", {
             on: function () {
                 // Add actions when the option is turned on
                 const baselib2 = Module.getBaseAddress("libil2cpp.so").add(0xA9C668)
@@ -985,7 +1057,7 @@ Interceptor.attach(baselib,{
        
        menu.addText("TELEPORT VALLEY ", 16, "#FFFFFF");
         
-        menu.addOption("option8", "CENTER CITY", {
+        menu.addOption("option9", "CENTER CITY", {
             on: function () {
                 // Add actions when the option is turned on
             },
@@ -994,7 +1066,7 @@ Interceptor.attach(baselib,{
             }
         })
         
-        menu.addOption("option9", "EXTRA??O", {
+        menu.addOption("option10", "EXTRA??O", {
             on: function () {
                 // Add actions when the option is turned on
             },
