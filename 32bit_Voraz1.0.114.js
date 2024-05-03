@@ -1024,7 +1024,7 @@ const option8 = {
         }
     })
     
-    },
+    }
 
     off() {
     
@@ -1050,7 +1050,7 @@ Java.perform(function () {
 
         //set name and color that will appear with the menu minimized.
 
-        menu.createMenuStart("𓆣", 30, "#FFFFFF")
+        menu.createMenuStart("TEST", 30, "#FFFFFF")
 
         //set menu layout color and size
 
@@ -1062,7 +1062,7 @@ Java.perform(function () {
 
         //name and name color
 
-        menu.createMenuBarTitle("____𓆣 VORAZ MENU 𓆣____", "#FFFFFF");
+        menu.createMenuBarTitle("____ VORAZ MENU ____", "#FFFFFF");
 
         //set color of on and off options.
 
