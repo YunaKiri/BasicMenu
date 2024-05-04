@@ -1101,7 +1101,6 @@ Interceptor.attach(baselib,{
                         }
                     })
             },
-            },
             off: function () {
                 // Add actions when the option is turned off
                 const baselib3 = Module.getBaseAddress("libil2cpp.so").add(0x688670)
@@ -1131,7 +1130,7 @@ Interceptor.attach(baselib,{
 
                         }
                     })
-            },
+ 
             },
             off: function () {
                 // Add actions when the option is turned off
