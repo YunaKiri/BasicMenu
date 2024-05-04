@@ -1081,18 +1081,62 @@ Interceptor.attach(baselib,{
         menu.addOption("option10", "CENTER CITY", {
             on: function () {
                 // Add actions when the option is turned on
+                const baselib3 = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+
+                    Interceptor.attach(baselib3,{
+
+                        onEnter(args){
+
+                            const compponent =  Module.getBaseAddress("libil2cpp.so").add(0x24909C0)
+                            const fcompponent = new NativeFunction(compponent,"pointer",["pointer"])
+    
+                            let transform =  fcompponent(args[0])
+    
+           
+                            const setPosition = Module.getBaseAddress("libil2cpp.so").add(0x249E90C)
+                            const fsetPosition = new NativeFunction(setPosition,"void",["pointer","float","float","float"])
+             
+                            fsetPosition(transform,521.9363403320313,85.45307159423828,430.6603698730469)
+
+                        }
+                    })
+            },
             },
             off: function () {
                 // Add actions when the option is turned off
+                const baselib3 = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+                      Interceptor.detachAll();
             }
         })
         
         menu.addOption("option11", "EXTRAÇÃO", {
             on: function () {
                 // Add actions when the option is turned on
+                const baselib4 = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+
+                    Interceptor.attach(baselib4,{
+
+                        onEnter(args){
+
+                            const compponent =  Module.getBaseAddress("libil2cpp.so").add(0x24909C0)
+                            const fcompponent = new NativeFunction(compponent,"pointer",["pointer"])
+    
+                            let transform =  fcompponent(args[0])
+    
+           
+                            const setPosition = Module.getBaseAddress("libil2cpp.so").add(0x249E90C)
+                            const fsetPosition = new NativeFunction(setPosition,"void",["pointer","float","float","float"])
+             
+                            fsetPosition(transform,151.2646026611328,110.85526275634766,535.8716430664063)
+
+                        }
+                    })
+            },
             },
             off: function () {
                 // Add actions when the option is turned off
+                const baselib4 = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+                      Interceptor.detachAll();
             }
         })
         
