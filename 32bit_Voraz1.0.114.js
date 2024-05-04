@@ -1097,12 +1097,11 @@ Interceptor.attach(baselib,{
                             const fsetPosition = new NativeFunction(setPosition,"void",["pointer","float","float","float"])
              
                             fsetPosition(transform,521.9363403320313,85.45307159423828,430.6603698730469)
-
                         }
                     })
             },
-            
             },
+            
             off: function () {
                 // Add actions when the option is turned off
                 const baselib3 = Module.getBaseAddress("libil2cpp.so").add(0x688670)
