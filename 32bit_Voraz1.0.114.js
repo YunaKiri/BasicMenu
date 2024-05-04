@@ -916,34 +916,34 @@ Interceptor.attach(baselib,{
                 // Add actions when the option is turned off
                 const baselib = Module.getBaseAddress("libil2cpp.so").add(0x688670)
 
-Interceptor.attach(baselib,{
+             Interceptor.attach(baselib,{
 
-    onEnter(args){
+                 onEnter(args){
 
-        const phontomView = args[0].add(0xC).readPointer().add(0x3C).readU8()
+                     const phontomView = args[0].add(0xC).readPointer().add(0x3C).readU8()
          
-        const isMine =  Module.getBaseAddress("libil2cpp.so").add(0x1A0B69C)
-        const fIsMine = new NativeFunction(isMine,"bool",["pointer"])
+                     const isMine =  Module.getBaseAddress("libil2cpp.so").add(0x1A0B69C)
+                     const fIsMine = new NativeFunction(isMine,"bool",["pointer"])
 
-        if(phontomView == false){
+                     if(phontomView == false){
 
-            const compponent =  Module.getBaseAddress("libil2cpp.so").add(0x24909C0)
-            const fcompponent = new NativeFunction(compponent,"pointer",["pointer"])
+                         const compponent =  Module.getBaseAddress("libil2cpp.so").add(0x24909C0)
+                         const fcompponent = new NativeFunction(compponent,"pointer",["pointer"])
     
-            let transform =  fcompponent(args[0])
+                         let transform =  fcompponent(args[0])
     
            
-            const setScale = Module.getBaseAddress("libil2cpp.so").add(0x249F940)
-            const fsetScale = new NativeFunction(setScale,"void",["pointer","float","float","float"])
+                         const setScale = Module.getBaseAddress("libil2cpp.so").add(0x249F940)
+                         const fsetScale = new NativeFunction(setScale,"void",["pointer","float","float","float"])
              
-            fsetScale(transform,0.6,0.6,0.6)
+                         fsetScale(transform,0.6,0.6,0.6)
                
        
-        }else{
+                     }else{
 
-        }
-    }
-})
+                     }
+                 }
+             })
                 
                 
             }
@@ -1134,6 +1134,7 @@ Interceptor.attach(baselib,{
                     })
             },
             },
+            
             off: function () {
                 // Add actions when the option is turned off
                 const baselib4 = Module.getBaseAddress("libil2cpp.so").add(0x688670)
