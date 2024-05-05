@@ -334,8 +334,14 @@ class Menu {
     }
 }
 
-// Exemplo de uso
-const classLoader = getClassLoader();
+
+
+
+Java.perform(function () {
+
+    Java.scheduleOnMainThread(function () {
+
+        const classLoader = getClassLoader();
 const activity = getMainActivity(classLoader);
 const menu = new Menu(classLoader, activity);
 menu.createMenuOptionsLayout("#0000FF", "#FF0000"); // Define as cores dos itens do menu
@@ -369,5 +375,10 @@ menu.addOption("option3", "Option 3", {
 }); // Adiciona a terceira opção do menu
 menu.addTextInput("Enter your key", function (key) {
     console.log("Entered key: " + key);
-}); // Adiciona um campo de entrada de texto
-menu.start(); // Inicia o menu
+}); 
+
+        menu.start()
+
+    })
+
+})
