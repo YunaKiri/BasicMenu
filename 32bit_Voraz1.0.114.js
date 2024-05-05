@@ -432,6 +432,23 @@ createMenuBarTitle(title, color, size) {
         this.#menuScrollLayout.addView(textView);
 
     }
+    
+    addEditText(hint, textSize, textColor) {
+        const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(this.#MATCH_PARENT, this.#WRAP_CONTENT);
+        const margin = pixelDensityToPixels(this.#activity, 5);
+    
+        const editText = this.#classLoader.EditText.$new(this.#activity);
+        editText.setHint(this.#classLoader.String.$new(hint));
+        editText.setTextSize(textSize);
+        editText.setTextColor(this.#classLoader.Color.parseColor(textColor));
+    
+        layoutParams.setMargins(0, 0, 0, margin);
+        editText.setLayoutParams(layoutParams);
+
+        this.#menuScrollLayout.addView(editText);
+    
+    
+    }
 
 
 
@@ -714,10 +731,10 @@ createMenuBarTitle(title, color, size) {
 
 
 
-
-
 Java.perform(function () {
 
+    var validKey = "123"; // Adicione sua chave aqui
+    
     Java.scheduleOnMainThread(function () {
 
         const classLoader = getClassLoader()
@@ -725,38 +742,47 @@ Java.perform(function () {
         const mainActivity = getMainActivity(classLoader)
 
         const menu = new Menu(classLoader, mainActivity)
-
-        // Set the title and color that will appear with the minimized menu.
+        
+        // Função para verificar se a chave é válida
+        function checkKey(key) {
+            return key === validKey;
+        }
+        
+        // Função para habilitar ou desabilitar todas as opções com base na chave
+        function enableMenuOptions(key) {
+            const isKeyValid = checkKey(key);
+            menu.setEnabled(isKeyValid);
+        }
+        
+        // Definir o título e a cor que aparecerão com o menu minimizado.
         menu.createMenuStart("⚙️", 25, "#FFFFFF")
 
-        // Set the menu layout color and size.
+        // Definir a cor e o tamanho do layout do menu.
         menu.createMenuLayout("#333333", 300)
 
-        // Set the menu bar color.
+        // Definir a cor da barra de menu.
         menu.createMenuBarLayout("#000000")
 
-        // Set the name and name color.
+        // Definir o nome e a cor do nome.
         menu.createMenuBarTitle("VORAZ MENU", "#FFFFFF", 30);
 
-        // Set the color of on and off options.
+        // Definir a cor das opções ativadas e desativadas.
         menu.createMenuOptionsLayout("#00FF00", "#CCCCCC")
 
+        // Adicionar campo de entrada para a chave
+        menu.addText("Insira a chave:", 16, "#FFFFFF");
+        menu.addEditText("", "", function (text) {
+            enableMenuOptions(text);
+        });
 
-        // Add options
-        
-        menu.addOption("option1", "GOD MOD", {
-            on: function () {
-                // Add actions when the option is turned on
-                
-            },
-            off: function () {
-                // Add actions when the option is turned off
-                
+        // Adicionar texto com a função setText
+        menu.addText("Este é um texto de exemplo.", 16, "#FFFFFF");
 
-            }
-        })
+        // ...
+
+        // Aqui vão as funções do menu
         
-        
+        // ...
 
         menu.start()
 
