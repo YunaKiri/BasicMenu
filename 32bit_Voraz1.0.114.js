@@ -28,7 +28,7 @@ function getClassLoader() {
 
         View_OnClickListener: Java.use("android.view.View$OnClickListener"),
 
-        SeekBar: Java.use("android.widget.SeekBar") // Adicionando definição para SeekBar
+        SeekBar: Java.use("android.widget.SeekBar") // Adicionando defini莽茫o para SeekBar
 
     }
 
@@ -62,23 +62,43 @@ function getMainActivity(classLoader) {
 
 
 
-class TextEditor {
+
+
+class Menu {
 
     #classLoader
 
     #activity
 
-    #dialog
+    #MATCH_PARENT
 
-    #textView
+    #mainLayout
 
-    #editText
+    #menuStart
 
-    #button
+    #menuLayout
 
-    #errorTextView
+    #menuBarLayout
 
+    #menuBarTitle
 
+    #menuScroll
+
+    #menuOptions
+
+    #options
+
+    #contentView
+
+    #WRAP_CONTENT
+
+    #menuScrollLayout
+
+    #menuScrollView
+
+    #colorOn
+
+    #colorOff
 
     constructor(classLoader, activity) {
 
@@ -86,315 +106,498 @@ class TextEditor {
 
         this.#activity = activity
 
-        this.#createDialog()
+        this.#MATCH_PARENT = classLoader.LinearLayout_LayoutParams.MATCH_PARENT.value
 
-        this.#createTextView()
+        this.#WRAP_CONTENT = classLoader.LinearLayout_LayoutParams.WRAP_CONTENT.value
 
-        this.#createEditText()
+        this.#options = {}
 
-        this.#createButton()
+        this.#createContentView()
 
-        this.#createErrorTextView()
+        this.#createMainLayout()
 
-    }
-
-
-
-    #createDialog() {
-
-        this.#dialog = this.#classLoader.TextView.$new(this.#activity)
-
-        const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(this.#classLoader.ViewGroup_LayoutParams.MATCH_PARENT, this.#classLoader.ViewGroup_LayoutParams.WRAP_CONTENT)
-
-        this.#dialog.setLayoutParams(layoutParams)
-
-        this.#dialog.setGravity(this.#classLoader.Gravity.CENTER.value)
-
-        this.#dialog.setBackgroundColor(this.#classLoader.Color.WHITE.value)
-
-        this.#dialog.setPadding(50, 50, 50, 50)
-
-        this.#dialog.setElevation(20)
+        this.#createMenuScroll()
 
     }
 
+    #createContentView() {
 
+        this.#contentView = this.#classLoader.LinearLayout.$new(this.#activity)
 
-    #createTextView() {
+        const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(this.#MATCH_PARENT, this.#MATCH_PARENT)
 
-        this.#textView = this.#classLoader.TextView.$new(this.#activity)
+        this.#contentView.setLayoutParams(layoutParams)
 
-        const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(this.#classLoader.ViewGroup_LayoutParams.MATCH_PARENT, this.#classLoader.ViewGroup_LayoutParams.WRAP_CONTENT)
+        this.#contentView.setGravity(this.#classLoader.Gravity.CENTER.value)
 
-        this.#textView.setLayoutParams(layoutParams)
-
-        this.#textView.setText("Insira a chave:")
-
-        this.#textView.setTextSize(20)
-
-        this.#textView.setTextColor(this.#classLoader.Color.BLACK.value)
-
-        this.#textView.setGravity(this.#classLoader.Gravity.CENTER.value)
-
-        this.#dialog.addView(this.#textView)
+        this.#contentView.setBackgroundColor(this.#classLoader.Color.TRANSPARENT.value)
 
     }
 
+    #createMainLayout() {
 
+        const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(this.#WRAP_CONTENT, this.#WRAP_CONTENT)
 
-    #createEditText() {
+        this.#mainLayout = this.#classLoader.LinearLayout.$new(this.#activity)
 
-        this.#editText = this.#classLoader.TextView.$new(this.#activity)
-
-        const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(this.#classLoader.ViewGroup_LayoutParams.MATCH_PARENT, this.#classLoader.ViewGroup_LayoutParams.WRAP_CONTENT)
-
-        this.#editText.setLayoutParams(layoutParams)
-
-        this.#editText.setHint("Digite sua chave aqui...")
-
-        this.#editText.setPadding(20, 20, 20, 20)
-
-        this.#editText.setSingleLine(true)
-
-        this.#editText.setBackground(null)
-
-        this.#editText.setBackgroundColor(this.#classLoader.Color.parseColor("#F5F5F5"))
-
-        this.#editText.setTextColor(this.#classLoader.Color.BLACK.value)
-
-        this.#dialog.addView(this.#editText)
+        this.#mainLayout.setLayoutParams(layoutParams)
 
     }
 
+    #createMenuScroll() {
 
+        const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(this.#MATCH_PARENT, this.#WRAP_CONTENT)
 
-    #createButton() {
+        this.#menuScrollView = this.#classLoader.ScrollView.$new(this.#activity)
 
-        this.#button = this.#classLoader.TextView.$new(this.#activity)
+        const padding = this.pixelDensityToPixels(8)
 
-        const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(this.#classLoader.ViewGroup_LayoutParams.WRAP_CONTENT, this.#classLoader.ViewGroup_LayoutParams.WRAP_CONTENT)
+        this.#menuScrollView.setLayoutParams(layoutParams)
 
-        layoutParams.setMargins(0, 50, 0, 0)
+        this.#menuScrollView.setPadding(padding, padding, padding, padding)
 
-        this.#button.setLayoutParams(layoutParams)
+        this.#menuScrollView.mFillViewport.value = true
 
-        this.#button.setText("Confirmar")
+    }
 
-        this.#button.setTextSize(18)
+    #createMenuScrollLayout() {
 
-        this.#button.setTextColor(this.#classLoader.Color.WHITE.value)
+        const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(this.#MATCH_PARENT, this.#WRAP_CONTENT)
 
-        this.#button.setBackgroundColor(this.#classLoader.Color.parseColor("#009688"))
+        this.#menuScrollLayout = this.#classLoader.LinearLayout.$new(this.#activity)
 
-        this.#button.setPadding(40, 20, 40, 20)
+        this.#menuScrollLayout.setLayoutParams(layoutParams)
 
-        this.#button.setGravity(this.#classLoader.Gravity.CENTER.value)
+        this.#menuScrollLayout.setOrientation(this.#menuScrollLayout.VERTICAL.value)
 
-        this.#button.setOnClickListener(
+    }
 
-            this.#classLoader.View_OnClickListener.onClick.overload('android.view.View', ).implementation = () => {
+    createMenuOptionsLayout(colorOn, colorOff) {
 
-                const key = this.#editText.getText().toString()
+        this.#createMenuScroll()
 
-                if (key === "sua_chave_aqui") {
+        this.#createMenuScrollLayout()
 
-                    this.#closeDialog()
+        this.#colorOn = colorOn
 
-                    this.#successCallback(key)
+        this.#colorOff = colorOff
 
-                } else {
+    }
 
-                    this.#showErrorMessage("Chave inválida!")
+    createMenuStart(title, size, color) {
+
+        size = this.pixelDensityToPixels(size)
+
+        const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(this.#WRAP_CONTENT, this.#WRAP_CONTENT)
+
+        this.#menuStart = this.#classLoader.TextView.$new(this.#activity)
+
+        this.#menuStart.setLayoutParams(layoutParams)
+
+        this.#menuStart.setText(this.#classLoader.String.$new(title))
+
+        this.#menuStart.setTextSize(size)
+
+        this.#menuStart.setTextColor(this.#classLoader.Color.parseColor(color))
+
+    }
+
+    createMenuLayout(color, size) {
+
+        const SIZE_DP = this.pixelDensityToPixels(size)
+
+        const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(SIZE_DP, SIZE_DP)
+
+        this.#menuLayout = this.#classLoader.LinearLayout.$new(this.#activity)
+
+        this.#menuLayout.setLayoutParams(layoutParams)
+
+        this.#menuLayout.setBackgroundColor(this.#classLoader.Color.parseColor(color))
+
+        this.#menuLayout.setOrientation(this.#menuLayout.VERTICAL.value)
+
+    }
+
+    createMenuBarLayout(color) {
+
+        const padding = this.pixelDensityToPixels(10)
+
+        const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(this.#MATCH_PARENT, this.#WRAP_CONTENT)
+
+        this.#menuBarLayout = this.#classLoader.LinearLayout.$new(this.#activity)
+
+        this.#menuBarLayout.setLayoutParams(layoutParams)
+
+        this.#menuBarLayout.setBackgroundColor(this.#classLoader.Color.parseColor(color))
+
+        this.#menuBarLayout.setPadding(padding, padding, 0, padding)
+
+    }
+
+    createMenuBarTitle(title, color, size) {
+        const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(this.#WRAP_CONTENT, this.#WRAP_CONTENT);
+        this.#menuBarTitle = this.#classLoader.TextView.$new(this.#activity);
+        this.#menuBarTitle.setLayoutParams(layoutParams);
+        this.#menuBarTitle.setText(this.#classLoader.String.$new(title));
+        this.#menuBarTitle.setTextColor(this.#classLoader.Color.parseColor(color));
+        this.#menuBarTitle.setTextSize(size); // Adiciona o tamanho do texto
+    }
+
+    #drawContentView() {
+
+        this.#activity.addContentView(this.#contentView, this.#contentView.getLayoutParams())
+
+    }
+
+    #drawMainLayout() {
+
+        this.#contentView.addView(this.#mainLayout)
+
+    }
+
+    #drawMenuStart() {
+
+        this.#mainLayout.addView(this.#menuStart)
+
+    }
+
+    #drawMenuLayout() {
+
+        this.#mainLayout.addView(this.#menuLayout)
+
+    }
+
+    #drawMenuBarLayout() {
+
+        this.#menuLayout.addView(this.#menuBarLayout)
+
+    }
+
+    #drawMenuBarTitle() {
+
+        this.#menuBarLayout.addView(this.#menuBarTitle)
+
+    }
+
+    #drawMenuOptions() {
+
+        this.#menuLayout.addView(this.#menuScrollView)
+
+        this.#menuScrollView.addView(this.#menuScrollLayout)
+
+    }
+
+    #createOptionClickEvent(id, optionView, callbacks) {
+
+        const classLoader = this.#classLoader
+
+        let optionState = false
+
+        const colorOn = this.#colorOn
+
+        const colorOff = this.#colorOff
+
+        const optionOnClickListener = Java.registerClass({
+
+            name: "com.example." + id,
+
+            implements: [classLoader.View_OnClickListener],
+
+            methods: {
+
+                onClick(p1) {
+
+                    if (!optionState) {
+
+                        p1.setBackgroundColor(classLoader.Color.parseColor(colorOn))
+
+                        optionState = true
+
+                        callbacks.on()
+
+                    } else {
+
+                        p1.setBackgroundColor(classLoader.Color.parseColor(colorOff))
+
+                        optionState = false
+
+                        callbacks.off()
+
+                    }
 
                 }
 
             }
 
-        )
-
-        this.#dialog.addView(this.#button)
-
-    }
-
-
-
-    #createErrorTextView() {
-
-        this.#errorTextView = this.#classLoader.TextView.$new(this.#activity)
-
-        const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(this.#classLoader.ViewGroup_LayoutParams.MATCH_PARENT, this.#classLoader.ViewGroup_LayoutParams.WRAP_CONTENT)
-
-        layoutParams.setMargins(0, 50, 0, 0)
-
-        this.#errorTextView.setLayoutParams(layoutParams)
-
-        this.#errorTextView.setTextSize(16)
-
-        this.#errorTextView.setTextColor(this.#classLoader.Color.RED.value)
-
-        this.#errorTextView.setGravity(this.#classLoader.Gravity.CENTER.value)
-
-        this.#dialog.addView(this.#errorTextView)
-
-    }
-
-
-
-    #closeDialog() {
-
-        this.#activity.runOnUiThread(() => {
-
-            this.#dialog.dismiss()
-
         })
 
-    }
-
-
-
-    #showErrorMessage(message) {
-
-        this.#activity.runOnUiThread(() => {
-
-            this.#errorTextView.setText(message)
-
-        })
+        optionView.setOnClickListener(optionOnClickListener.$new())
 
     }
 
+    addButton(text, callback) {
+        const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(this.#MATCH_PARENT, this.#WRAP_CONTENT);
 
+        const button = this.#classLoader.Button.$new(this.#activity);
 
-    setTitle(title) {
+        button.setText(this.#classLoader.String.$new(text));
 
-        this.#activity.runOnUiThread(() => {
+        button.setOnClickListener(new this.#classLoader.View.OnClickListener({
+            onClick(view) {
+                callback();
+            }
+        }));
 
-            this.#textView.setText(title)
+        this.#menuScrollLayout.addView(button);
 
-        })
-
+        button.setLayoutParams(layoutParams);
     }
 
+    addTextInput(hint) {
+        const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(this.#MATCH_PARENT, this.#WRAP_CONTENT);
 
+        const editText = this.#classLoader.EditText.$new(this.#activity);
 
-    setPlaceholder(placeholder) {
+        editText.setHint(this.#classLoader.String.$new(hint));
 
-        this.#activity.runOnUiThread(() => {
+        this.#menuScrollLayout.addView(editText);
 
-            this.#editText.setHint(placeholder)
+        editText.setLayoutParams(layoutParams);
 
-        })
-
+        return {
+            getText: function () {
+                return editText.getText().toString}
     }
 
+    addText(text, textSize, textColor) {
+        const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(this.#WRAP_CONTENT, this.#WRAP_CONTENT);
 
+        const margin = this.pixelDensityToPixels(5);
 
-    setButtonText(text) {
+        const textView = this.#classLoader.TextView.$new(this.#activity);
 
-        this.#activity.runOnUiThread(() => {
+        textView.setText(this.#classLoader.String.$new(text));
 
-            this.#button.setText(text)
+        textView.setTextSize(textSize);
 
-        })
+        textView.setTextColor(this.#classLoader.Color.parseColor(textColor));
 
+        layoutParams.setMargins(0, 0, 0, margin);
+
+        textView.setLayoutParams(layoutParams);
+
+        this.#menuScrollLayout.addView(textView);
     }
 
+    addSeekBar(textValue, initialValue, minValue, maxValue, callback) {
+        const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(this.#MATCH_PARENT, this.#WRAP_CONTENT);
 
+        const margin = this.pixelDensityToPixels(1);
 
-    setButtonClickListener(callback) {
+        const seekBar = this.#classLoader.SeekBar.$new(this.#activity, null, 0, this.#classLoader.android.R.style.Widget_Holo_SeekBar);
 
-        this.#successCallback = callback
+        const textView = this.#classLoader.TextView.$new(this.#activity);
 
+        seekBar.setMax(maxValue - minValue);
+
+        seekBar.setProgress(0);
+
+        layoutParams.setMargins(0, 0, 0, margin);
+
+        seekBar.setLayoutParams(layoutParams);
+
+        const text = this.#classLoader.String.$new(textValue + " " + initialValue);
+
+        textView.setText(text);
+
+        textView.setTextColor(this.#classLoader.Color.parseColor("#75757B"));
+
+        seekBar.setProgress(initialValue);
+
+        const SeekBarChangeListener = this.#classLoader.SeekBar.OnSeekBarChangeListener;
+
+        const SeekBarChangeListenerImplementation = Java.registerClass({
+            name: "com.example.SeekBarChangeListener" + Math.floor(Math.random() * 1000),
+            implements: [SeekBarChangeListener],
+            methods: {
+                onProgressChanged: function (seekBar, progress, fromUser) {
+                    const value = progress + minValue;
+                    const text = this.#classLoader.String.$new(textValue + " " + value);
+                    textView.setText(text);
+                    callback(value, "move");
+                },
+                onStartTrackingTouch: function (seekBar) {
+                    const progress = seekBar.getProgress();
+                    const value = progress + minValue;
+                    const text = this.#classLoader.String.$new(textValue + " " + value);
+                    textView.setText(text);
+                    callback(value, "start");
+                },
+                onStopTrackingTouch: function (seekBar) {
+                    const progress = seekBar.getProgress();
+                    const value = progress + minValue;
+                    const text = this.#classLoader.String.$new(textValue + " " + value);
+                    textView.setText(text);
+                    callback(value, "end");
+                }
+            }
+        });
+
+        seekBar.setOnSeekBarChangeListener(new SeekBarChangeListenerImplementation());
+
+        this.#menuScrollLayout.addView(textView);
+        this.#menuScrollLayout.addView(seekBar);
+
+        textView.setLayoutParams(layoutParams);
+        textView.setGravity(this.#classLoader.Gravity.CENTER.value);
     }
 
-
-
-    show() {
-
-        this.#activity.runOnUiThread(() => {
-
-            const window = this.#activity.getWindow()
-
-            const decorView = window.getDecorView()
-
-            this.#dialog.show()
-
-        })
-
+    pixelDensityToPixels(dp) {
+        const density = this.#activity.getResources().getDisplayMetrics().density.value;
+        return parseInt(dp * density);
     }
 
+    #createMainLayoutEvent() {
+        const mainLayout = this.#mainLayout;
+        const menuLayout = this.#menuLayout;
+        const menuStart = this.#menuStart;
+        const classLoader = this.#classLoader;
+        let initialX = 0;
+        let initialY = 0;
+        let isMove = false;
+        let isMenuLayout = false;
+        let initialTouchTime = 0;
+        const MainLayoutOnTouchListener = Java.registerClass({
+            name: "com.example.MainLayoutEvent",
+            implements: [classLoader.View_OnTouchListener],
+            methods: {
+                onTouch: function (view, event) {
+                    switch (event.getAction()) {
+                        case classLoader.MotionEvent.ACTION_DOWN.value:
+                            initialX = view.getX() - event.getRawX();
+                            initialY = view.getY() - event.getRawY();
+                            isMove = false;
+                            initialTouchTime = Date.now();
+                            break;
+                        case classLoader.MotionEvent.ACTION_UP.value:
+                            if (!isMove) {
+                                if (!isMenuLayout) {
+                                    mainLayout.removeView(menuStart);
+                                    mainLayout.addView(menuLayout);
+                                    isMenuLayout = true;
+                                } else {
+                                    mainLayout.removeView(menuLayout);
+                                    mainLayout.addView(menuStart);
+                                    isMenuLayout = false;
+                                }
+                            }
+                            break;
+                        case classLoader.MotionEvent.ACTION_MOVE.value:
+                            view.setX(event.getRawX() + initialX);
+                            view.setY(event.getRawY() + initialY);
+                            let deltaTime = Date.now() - initialTouchTime;
+                            if (deltaTime > 200) isMove = true;
+                            break;
+                        default:
+                            return false;
+                    }
+                    return true;
+                }
+            }
+        });
 
-
-    close() {
-
-        this.#closeDialog()
-
+        this.#mainLayout.setOnTouchListener(new MainLayoutOnTouchListener());
     }
 
+    start() {
+        this.#drawContentView();
+        this.#drawMainLayout();
+        this.#drawMenuStart();
+        this.#drawMenuBarLayout();
+        this.#drawMenuBarTitle();
+        this.#drawMenuOptions();
+        this.#createMainLayoutEvent();
+    }
 }
+
+
+
+
+
 
 
 
 Java.perform(function () {
 
     Java.scheduleOnMainThread(function () {
-        
-        const classLoader = getClassLoader();
 
-        const mainActivity = getMainActivity(classLoader);
+        const classLoader = getClassLoader()
 
-        const textEditor = new TextEditor(classLoader, mainActivity);
+        const mainActivity = getMainActivity(classLoader)
 
-        textEditor.setTitle("Insira a chave:");
+        const menu = new Menu(classLoader, mainActivity)
 
-        textEditor.setPlaceholder("Digite sua chave aqui...");
+        // Função para iniciar o menu após verificar a chave
+        function startMenu(key) {
+            if (verifyKey(key)) {
+                // Set the title and color that will appear with the minimized menu.
+                menu.createMenuStart("⚙️", 25, "#FFFFFF")
 
-        textEditor.setButtonText("Confirmar");
+                // Set the menu layout color and size.
+                menu.createMenuLayout("#333333", 300)
 
-        textEditor.setButtonClickListener(function (key) {
-            if (key === "sua_chave_aqui") {
+                // Set the menu bar color.
+                menu.createMenuBarLayout("#000000")
 
-                const menu = new Menu(classLoader, mainActivity);
+                // Set the name and name color.
+                menu.createMenuBarTitle("VORAZ MENU", "#FFFFFF", 30);
 
-                // Set the title and colormenu.createMenuOptionsLayout("#009688", "#75757B");
+                // Set the color of on and off options.
+                menu.createMenuOptionsLayout("#00FF00", "#CCCCCC")
 
-                menu.createMenuStart("Menu", 18, "#75757B");
+                // Add options
+                menu.addText("MENU PLAYER", 16, "#FFFFFF");
 
-                menu.createMenuLayout("#F5F5F5", 16);
-
-                menu.createMenuBarLayout("#009688");
-
-                menu.createMenuBarTitle("Título do Menu", "#FFFFFF", 18);
-
-                menu.addOption("option1", "Opção 1", {
-                    on() {
-                        console.log("Opção 1 ativada");
+                menu.addOption("option1", "GOD MOD", {
+                    on: function () {
+                        // Add actions when the option is turned on
+                        const morto = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+                        Interceptor.attach(morto, {
+                            onEnter(args) {
+                                args[0].add(0x18).readPointer().add(0x48).writeU8(1)
+                            }
+                        })
                     },
-                    off() {
-                        console.log("Opção 1 desativada");
+                    off: function () {
+                        // Add actions when the option is turned off
+                        const morto = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+                        Interceptor.attach(morto, {
+                            onEnter(args) {
+                                args[0].add(0x18).readPointer().add(0x48).writeU8(0)
+                            }
+                        })
                     }
-                });
+                })
 
-                menu.addOption("option2", "Opção 2", {
-                    on() {
-                        console.log("Opção 2 ativada");
-                    },
-                    off() {
-                        console.log("Opção 2 desativada");
-                    }
-                });
+                // Add more options here...
 
-                menu.addText("Ajuste de volume", 14, "#000000");
-
-                menu.addSeekBar("Volume", 50, 0, 100, function (value, type) {
-                    console.log("Novo valor do volume:", value, "Tipo:", type);
-                });
-
-                menu.start();
+                menu.start()
             } else {
-                textEditor.show();
+                console.log("Chave inválida!");
             }
-        });
+        }
 
-        textEditor.show();
-    });
-});
+        // Função para mostrar a caixa de texto para inserir a chave
+        function showKeyInput() {
+            const key = menu.addTextInput("Insira a chave:");
+            menu.addButton("Enviar", function () {
+                const enteredKey = key.getText();
+                startMenu(enteredKey);
+            });
+        }
+
+        // Mostrar a caixa de texto para inserir a chave
+        showKeyInput();
+
+    })
+})
