@@ -718,7 +718,7 @@ createMenuBarTitle(title, color, size) {
 
 Java.perform(function () {
 
-    var validKey = "SUA_CHAVE_AQUI"; // Adicione sua chave aqui
+
 
     Java.scheduleOnMainThread(function () {
 
@@ -748,8 +748,22 @@ Java.perform(function () {
         // ...
 
         // Aqui vão as funções do menu
-        Java.perform(function () {
+        
+        // ...
 
+        menu.start()
+
+    })
+
+})
+
+
+
+
+Java.perform(function () {
+
+    var validKey = "SUA_CHAVE_AQUI"; // Adicione sua chave aqui
+    
     Java.scheduleOnMainThread(function () {
 
         const classLoader = getClassLoader()
@@ -757,6 +771,19 @@ Java.perform(function () {
         const mainActivity = getMainActivity(classLoader)
 
         const menu = new Menu(classLoader, mainActivity)
+        
+                // Função para verificar se a chave é válida
+        function checkKey(key) {
+            return key === validKey;
+        }
+        
+                // Função para habilitar ou desabilitar todas as opções com base na chave
+        function enableMenuOptions(key) {
+            const isKeyValid = checkKey(key);
+            menu.setEnabled(isKeyValid);
+        }
+        
+        
 
         // Set the title and color that will appear with the minimized menu.
         menu.createMenuStart("⚙️", 25, "#FFFFFF")
@@ -776,6 +803,24 @@ Java.perform(function () {
 
         // Add options
         
+                // Adicionar campo de entrada para a chave
+        menu.addText("Insira a chave:", 16, "#FFFFFF");
+        menu.addEditText("", "", function (text) {
+            enableMenuOptions(text);
+        });
+
+        // ...
+
+        // Aqui vão as funções do menu
+        
+        // ...
+
+        menu.start()
+
+    })
+
+})
+
         menu.addText("MENU PLAYER", 16, "#FFFFFF");
         
         menu.addOption("option1", "GOD MOD", {
@@ -1266,18 +1311,6 @@ Interceptor.attach(baselib,{
     })
 
 })
-
-        // ...
-
-        menu.start()
-
-    })
-
-})
-
-
-
-
 
 
 
