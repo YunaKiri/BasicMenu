@@ -28,7 +28,9 @@ function getClassLoader() {
 
         View_OnClickListener: Java.use("android.view.View$OnClickListener"),
 
-        SeekBar: Java.use("android.widget.SeekBar") // Adicionando defini莽茫o para SeekBar
+        SeekBar: Java.use("android.widget.SeekBar"), // Adicionando definição para SeekBar
+
+        EditText: Java.use("android.widget.EditText") // Adicionando definição para EditText
 
     }
 
@@ -100,6 +102,10 @@ class Menu {
 
     #colorOff
 
+
+
+
+
     constructor(classLoader, activity) {
 
         this.#classLoader = classLoader
@@ -120,6 +126,8 @@ class Menu {
 
     }
 
+
+
     #createContentView() {
 
         this.#contentView = this.#classLoader.LinearLayout.$new(this.#activity)
@@ -134,6 +142,8 @@ class Menu {
 
     }
 
+
+
     #createMainLayout() {
 
         const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(this.#WRAP_CONTENT, this.#WRAP_CONTENT)
@@ -144,13 +154,15 @@ class Menu {
 
     }
 
+
+
     #createMenuScroll() {
 
         const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(this.#MATCH_PARENT, this.#WRAP_CONTENT)
 
         this.#menuScrollView = this.#classLoader.ScrollView.$new(this.#activity)
 
-        const padding = this.pixelDensityToPixels(8)
+        const padding = pixelDensityToPixels(this.#activity, 8)
 
         this.#menuScrollView.setLayoutParams(layoutParams)
 
@@ -159,6 +171,8 @@ class Menu {
         this.#menuScrollView.mFillViewport.value = true
 
     }
+
+
 
     #createMenuScrollLayout() {
 
@@ -172,6 +186,8 @@ class Menu {
 
     }
 
+
+
     createMenuOptionsLayout(colorOn, colorOff) {
 
         this.#createMenuScroll()
@@ -184,9 +200,11 @@ class Menu {
 
     }
 
+
+
     createMenuStart(title, size, color) {
 
-        size = this.pixelDensityToPixels(size)
+        size = pixelDensityToPixels(this.#activity, size)
 
         const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(this.#WRAP_CONTENT, this.#WRAP_CONTENT)
 
@@ -202,9 +220,11 @@ class Menu {
 
     }
 
+
+
     createMenuLayout(color, size) {
 
-        const SIZE_DP = this.pixelDensityToPixels(size)
+        const SIZE_DP = pixelDensityToPixels(this.#activity, size)
 
         const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(SIZE_DP, SIZE_DP)
 
@@ -218,9 +238,11 @@ class Menu {
 
     }
 
+
+
     createMenuBarLayout(color) {
 
-        const padding = this.pixelDensityToPixels(10)
+        const padding = pixelDensityToPixels(this.#activity, 10)
 
         const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(this.#MATCH_PARENT, this.#WRAP_CONTENT)
 
@@ -234,14 +256,18 @@ class Menu {
 
     }
 
-    createMenuBarTitle(title, color, size) {
-        const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(this.#WRAP_CONTENT, this.#WRAP_CONTENT);
-        this.#menuBarTitle = this.#classLoader.TextView.$new(this.#activity);
-        this.#menuBarTitle.setLayoutParams(layoutParams);
-        this.#menuBarTitle.setText(this.#classLoader.String.$new(title));
-        this.#menuBarTitle.setTextColor(this.#classLoader.Color.parseColor(color));
-        this.#menuBarTitle.setTextSize(size); // Adiciona o tamanho do texto
-    }
+
+
+createMenuBarTitle(title, color, size) {
+    const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(this.#WRAP_CONTENT, this.#WRAP_CONTENT);
+    this.#menuBarTitle = this.#classLoader.TextView.$new(this.#activity);
+    this.#menuBarTitle.setLayoutParams(layoutParams);
+    this.#menuBarTitle.setText(this.#classLoader.String.$new(title));
+    this.#menuBarTitle.setTextColor(this.#classLoader.Color.parseColor(color));
+    this.#menuBarTitle.setTextSize(size); // Adiciona o tamanho do texto
+}
+
+
 
     #drawContentView() {
 
@@ -249,11 +275,15 @@ class Menu {
 
     }
 
+
+
     #drawMainLayout() {
 
         this.#contentView.addView(this.#mainLayout)
 
     }
+
+
 
     #drawMenuStart() {
 
@@ -261,11 +291,15 @@ class Menu {
 
     }
 
+
+
     #drawMenuLayout() {
 
         this.#mainLayout.addView(this.#menuLayout)
 
     }
+
+
 
     #drawMenuBarLayout() {
 
@@ -273,11 +307,15 @@ class Menu {
 
     }
 
+
+
     #drawMenuBarTitle() {
 
         this.#menuBarLayout.addView(this.#menuBarTitle)
 
     }
+
+
 
     #drawMenuOptions() {
 
@@ -287,6 +325,8 @@ class Menu {
 
     }
 
+
+
     #createOptionClickEvent(id, optionView, callbacks) {
 
         const classLoader = this.#classLoader
@@ -295,9 +335,7 @@ class Menu {
 
         const colorOn = this.#colorOn
 
-        const colorOff = this.#colorOff
-
-        const optionOnClickListener = Java.registerClass({
+        const colorOff = this.#colorOffconst optionOnClickListener = Java.registerClass({
 
             name: "com.example." + id,
 
@@ -335,46 +373,49 @@ class Menu {
 
     }
 
-    addButton(text, callback) {
-        const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(this.#MATCH_PARENT, this.#WRAP_CONTENT);
 
-        const button = this.#classLoader.Button.$new(this.#activity);
 
-        button.setText(this.#classLoader.String.$new(text));
+    addOption(id, name, callbacks) {
 
-        button.setOnClickListener(new this.#classLoader.View.OnClickListener({
-            onClick(view) {
-                callback();
-            }
-        }));
+        const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(this.#MATCH_PARENT, this.#WRAP_CONTENT)
 
-        this.#menuScrollLayout.addView(button);
+        const padding = pixelDensityToPixels(this.#activity, 5)
 
-        button.setLayoutParams(layoutParams);
+        const option = this.#classLoader.TextView.$new(this.#activity)
+
+        const margin = pixelDensityToPixels(this.#activity, 10)
+
+        option.setText(this.#classLoader.String.$new(name))
+
+        option.setBackgroundColor(this.#classLoader.Color.parseColor(this.#colorOff))
+
+        option.setTextColor(this.#classLoader.Color.parseColor("#75757B"))
+
+        layoutParams.setMargins(0, 0, 0, margin)
+
+        option.setLayoutParams(layoutParams)
+
+        option.setPadding(padding, padding, 0, padding)
+
+        this.#menuScrollLayout.addView(option)
+
+        this.#createOptionClickEvent(id, option, callbacks)
+
     }
 
-    addTextInput(hint) {
-        const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(this.#MATCH_PARENT, this.#WRAP_CONTENT);
 
-        const editText = this.#classLoader.EditText.$new(this.#activity);
 
-        editText.setHint(this.#classLoader.String.$new(hint));
-
-        this.#menuScrollLayout.addView(editText);
-
-        editText.setLayoutParams(layoutParams);
-
-        return {
-            getText: function () {
-                return editText.getText().toString}
-    }
+    
 
     addText(text, textSize, textColor) {
+
         const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(this.#WRAP_CONTENT, this.#WRAP_CONTENT);
 
-        const margin = this.pixelDensityToPixels(5);
+        const margin = pixelDensityToPixels(this.#activity, 5);
 
         const textView = this.#classLoader.TextView.$new(this.#activity);
+
+
 
         textView.setText(this.#classLoader.String.$new(text));
 
@@ -386,15 +427,21 @@ class Menu {
 
         textView.setLayoutParams(layoutParams);
 
+
+
         this.#menuScrollLayout.addView(textView);
+
     }
 
-    addSeekBar(textValue, initialValue, minValue, maxValue, callback) {
+
+
+    addSeekBar(textValue,initialValue, minValue, maxValue, callback) {
+
         const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(this.#MATCH_PARENT, this.#WRAP_CONTENT);
 
-        const margin = this.pixelDensityToPixels(1);
+        const margin = pixelDensityToPixels(this.#activity,1);
 
-        const seekBar = this.#classLoader.SeekBar.$new(this.#activity, null, 0, this.#classLoader.android.R.style.Widget_Holo_SeekBar);
+        const seekBar = this.#classLoader.SeekBar.$new(this.#activity, null, 0, Java.use("android.R$style").Widget_Holo_SeekBar.value);
 
         const textView = this.#classLoader.TextView.$new(this.#activity);
 
@@ -406,119 +453,291 @@ class Menu {
 
         seekBar.setLayoutParams(layoutParams);
 
-        const text = this.#classLoader.String.$new(textValue + " " + initialValue);
+        const text = Java.use("java.lang.String").$new(textValue+ " "+ initialValue);
 
-        textView.setText(text);
+        textView.setText(text)
 
-        textView.setTextColor(this.#classLoader.Color.parseColor("#75757B"));
+        textView.setTextColor(this.#classLoader.Color.parseColor("#75757B"))
 
         seekBar.setProgress(initialValue);
 
-        const SeekBarChangeListener = this.#classLoader.SeekBar.OnSeekBarChangeListener;
+
+
+        const SeekBarChangeListener = Java.use("android.widget.SeekBar$OnSeekBarChangeListener");
 
         const SeekBarChangeListenerImplementation = Java.registerClass({
+
             name: "com.example.SeekBarChangeListener" + Math.floor(Math.random() * 1000),
+
             implements: [SeekBarChangeListener],
+
             methods: {
-                onProgressChanged: function (seekBar, progress, fromUser) {
+
+                onProgressChanged(seekBar, progress, fromUser) {
+
                     const value = progress + minValue;
-                    const text = this.#classLoader.String.$new(textValue + " " + value);
+
+                    const text = Java.use("java.lang.String").$new(textValue+" "+value);
+
+
+
                     textView.setText(text);
-                    callback(value, "move");
+
+                    callback(value,"move");
+
                 },
-                onStartTrackingTouch: function (seekBar) {
-                    const progress = seekBar.getProgress();
+
+                onStartTrackingTouch(seekBar) {
+
+                    const progress = seekBar.getProgress()
+
                     const value = progress + minValue;
-                    const text = this.#classLoader.String.$new(textValue + " " + value);
+
+                    const text = Java.use("java.lang.String").$new(textValue+" "+value);
+
+
+
                     textView.setText(text);
-                    callback(value, "start");
+
+                    callback(value,"start");
+
+
+
                 },
-                onStopTrackingTouch: function (seekBar) {
-                    const progress = seekBar.getProgress();
+
+                onStopTrackingTouch(seekBar) {
+
+                    const progress = seekBar.getProgress()
+
+
+
                     const value = progress + minValue;
-                    const text = this.#classLoader.String.$new(textValue + " " + value);
+
+                    const text = Java.use("java.lang.String").$new(textValue+" "+value);
+
+
+
                     textView.setText(text);
-                    callback(value, "end");
+
+                    callback(value,"end");
+
                 }
+
             }
+
         });
 
-        seekBar.setOnSeekBarChangeListener(new SeekBarChangeListenerImplementation());
+
+
+        seekBar.setOnSeekBarChangeListener(SeekBarChangeListenerImplementation.$new());
 
         this.#menuScrollLayout.addView(textView);
+
+
+
         this.#menuScrollLayout.addView(seekBar);
 
+
+
+
+
         textView.setLayoutParams(layoutParams);
+
         textView.setGravity(this.#classLoader.Gravity.CENTER.value);
+
     }
 
-    pixelDensityToPixels(dp) {
-        const density = this.#activity.getResources().getDisplayMetrics().density.value;
-        return parseInt(dp * density);
-    }
 
-    #createMainLayoutEvent() {
-        const mainLayout = this.#mainLayout;
-        const menuLayout = this.#menuLayout;
-        const menuStart = this.#menuStart;
-        const classLoader = this.#classLoader;
-        let initialX = 0;
-        let initialY = 0;
-        let isMove = false;
-        let isMenuLayout = false;
-        let initialTouchTime = 0;
-        const MainLayoutOnTouchListener = Java.registerClass({
-            name: "com.example.MainLayoutEvent",
-            implements: [classLoader.View_OnTouchListener],
+
+    addTextInput(hint, initialText, callback) {
+
+        const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(this.#MATCH_PARENT, this.#WRAP_CONTENT);
+
+        const margin = pixelDensityToPixels(this.#activity,1);
+
+        const editText = this.#classLoader.EditText.$new(this.#activity);
+
+        layoutParams.setMargins(0, 0, 0, margin);
+
+        editText.setLayoutParams(layoutParams);
+
+        editText.setHint(this.#classLoader.String.$new(hint));
+
+        editText.setText(this.#classLoader.String.$new(initialText));
+
+
+
+        const TextChangedListener = Java.use("android.text.TextWatcher");
+
+        const TextChangedListenerImplementation = Java.registerClass({
+
+            name: "com.example.TextChangedListener" + Math.floor(Math.random() * 1000),
+
+            implements: [TextChangedListener],
+
             methods: {
-                onTouch: function (view, event) {
-                    switch (event.getAction()) {
-                        case classLoader.MotionEvent.ACTION_DOWN.value:
-                            initialX = view.getX() - event.getRawX();
-                            initialY = view.getY() - event.getRawY();
-                            isMove = false;
-                            initialTouchTime = Date.now();
-                            break;
-                        case classLoader.MotionEvent.ACTION_UP.value:
-                            if (!isMove) {
-                                if (!isMenuLayout) {
-                                    mainLayout.removeView(menuStart);
-                                    mainLayout.addView(menuLayout);
-                                    isMenuLayout = true;
-                                } else {
-                                    mainLayout.removeView(menuLayout);
-                                    mainLayout.addView(menuStart);
-                                    isMenuLayout = false;
-                                }
-                            }
-                            break;
-                        case classLoader.MotionEvent.ACTION_MOVE.value:
-                            view.setX(event.getRawX() + initialX);
-                            view.setY(event.getRawY() + initialY);
-                            let deltaTime = Date.now() - initialTouchTime;
-                            if (deltaTime > 200) isMove = true;
-                            break;
-                        default:
-                            return false;
-                    }
-                    return true;
+
+                beforeTextChanged(s, start, count, after) {},
+
+                onTextChanged(s, start, before, count) {},
+
+                afterTextChanged(s) {
+
+                    callback(s.toString());
+
                 }
+
             }
+
         });
 
-        this.#mainLayout.setOnTouchListener(new MainLayoutOnTouchListener());
+        editText.addTextChangedListener(TextChangedListenerImplementation.$new());
+
+
+
+        this.#menuScrollLayout.addView(editText);
+
     }
 
-    start() {
-        this.#drawContentView();
-        this.#drawMainLayout();
-        this.#drawMenuStart();
-        this.#drawMenuBarLayout();
-        this.#drawMenuBarTitle();
-        this.#drawMenuOptions();
-        this.#createMainLayoutEvent();
+
+
+    #createMainLayoutEvent() {
+
+        const mainLayout = this.#mainLayout
+
+        const menuLayout = this.#menuLayout
+
+        const menuStart = this.#menuStart
+
+        const classLoader = this.#classLoader
+
+        let initialX = 0
+
+        let initialY = 0
+
+        let isMove = false
+
+        let isMenuLayout = false
+
+        let initialTouchTime = 0
+
+        const MainLayoutOnTouchListener = Java.registerClass({
+
+            name: "com.example.MainLayoutEvent",
+
+            implements: [classLoader.View_OnTouchListener],
+
+            methods: {
+
+                onTouch(view, event) {
+
+                    switch (event.getAction()) {
+
+                        case classLoader.MotionEvent.ACTION_DOWN.value:
+
+                            initialX = view.getX() - event.getRawX();
+
+                            initialY = view.getY() - event.getRawY();
+
+                            isMove = false
+
+                            initialTouchTime = Date.now()
+
+                            break
+
+                        case classLoader.MotionEvent.ACTION_UP.value:
+
+                            if (!isMove) {
+
+                                if (!isMenuLayout) {
+
+                                    mainLayout.removeView(menuStart)
+
+                                    mainLayout.addView(menuLayout)
+
+                                    isMenuLayout = true
+
+                                } else {
+
+                                    mainLayout.removeView(menuLayout)
+
+                                    mainLayout.addView(menuStart)
+
+                                    isMenuLayout = false
+
+                                }
+
+                            }
+
+                            break
+
+                        case classLoader.MotionEvent.ACTION_MOVE.value:
+
+                            view.setX(event.getRawX() + initialX)
+
+                            view.setY(event.getRawY() + initialY)
+
+                            let deltaTime = Date.now() - initialTouchTime
+
+                            if (deltaTime > 200) isMove = true
+
+                            break
+
+                        default:
+
+                            return false
+
+                    }
+
+                    return true
+
+                }
+
+            }
+
+        })
+
+        this.#mainLayout.setOnTouchListener(MainLayoutOnTouchListener.$new())
+
     }
+
+
+
+    start() {
+
+        this.#drawContentView()
+
+        this.#drawMainLayout()
+
+        this.#drawMenuStart()
+
+        this.#drawMenuBarLayout()
+        
+        this.#drawMenuBarTitle()
+
+        this.#drawMenuOptions()
+
+        this.#createMainLayoutEvent()
+
+    }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -537,67 +756,511 @@ Java.perform(function () {
 
         const menu = new Menu(classLoader, mainActivity)
 
-        // Função para iniciar o menu após verificar a chave
-        function startMenu(key) {
-            if (verifyKey(key)) {
-                // Set the title and color that will appear with the minimized menu.
-                menu.createMenuStart("⚙️", 25, "#FFFFFF")
+        // Set the title and color that will appear with the minimized menu.
+        menu.createMenuStart("⚙️", 25, "#FFFFFF")
 
-                // Set the menu layout color and size.
-                menu.createMenuLayout("#333333", 300)
+        // Set the menu layout color and size.
+        menu.createMenuLayout("#333333", 300)
 
-                // Set the menu bar color.
-                menu.createMenuBarLayout("#000000")
+        // Set the menu bar color.
+        menu.createMenuBarLayout("#000000")
 
-                // Set the name and name color.
-                menu.createMenuBarTitle("VORAZ MENU", "#FFFFFF", 30);
+        // Set the name and name color.
+        menu.createMenuBarTitle("VORAZ MENU", "#FFFFFF", 30);
 
-                // Set the color of on and off options.
-                menu.createMenuOptionsLayout("#00FF00", "#CCCCCC")
+        // Set the color of on and off options.
+        menu.createMenuOptionsLayout("#00FF00", "#CCCCCC")
 
-                // Add options
-                menu.addText("MENU PLAYER", 16, "#FFFFFF");
 
-                menu.addOption("option1", "GOD MOD", {
-                    on: function () {
-                        // Add actions when the option is turned on
-                        const morto = Module.getBaseAddress("libil2cpp.so").add(0x688670)
-                        Interceptor.attach(morto, {
-                            onEnter(args) {
-                                args[0].add(0x18).readPointer().add(0x48).writeU8(1)
-                            }
-                        })
-                    },
-                    off: function () {
-                        // Add actions when the option is turned off
-                        const morto = Module.getBaseAddress("libil2cpp.so").add(0x688670)
-                        Interceptor.attach(morto, {
-                            onEnter(args) {
-                                args[0].add(0x18).readPointer().add(0x48).writeU8(0)
-                            }
-                        })
+        // Add options
+        
+        menu.addText("MENU PLAYER", 16, "#FFFFFF");
+        
+        menu.addOption("option1", "GOD MOD", {
+            on: function () {
+                // Add actions when the option is turned on
+                const morto = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+
+Interceptor.attach(morto,{
+  onEnter(args){
+  
+  args[0].add(0x18).readPointer().add(0x48).writeU8(1)
+  
+  }
+})
+            },
+            off: function () {
+                // Add actions when the option is turned off
+                
+                const morto = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+
+Interceptor.attach(morto,{
+  onEnter(args){
+  
+  args[0].add(0x18).readPointer().add(0x48).writeU8(0)
+  
+  }
+})
+            }
+        })
+        
+        menu.addOption("option2", "KILL ALL ZOMBIE", {
+            on: function () {
+                // Add actions when the option is turned on
+                const playerStats = Module.getBaseAddress("libil2cpp.so").add(0x60397C)
+        Interceptor.attach(playerStats,{
+          onEnter(args){
+        
+         const enemyHealth = args[0].add(0x10).readPointer().add(0x14).readPointer()
+        
+         const die = Module.getBaseAddress("libil2cpp.so").add(0x5FE69C)
+         const fDie = new NativeFunction(die,"void",["pointer"])
+        
+         fDie(enemyHealth)
+        
+        
+         }
+        })
+            },
+            off: function () {
+                // Add actions when the option is turned off
+                const playerStats = Module.getBaseAddress("libil2cpp.so").add(0x60397C)
+      Interceptor.detachAll();
+            }
+        })
+        
+        menu.addOption("option3", "KILL ME", {
+            on: function () {
+                // Add actions when the option is turned on
+                const playerStats3 = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+        Interceptor.attach(playerStats3,{
+          onEnter(args){
+       
+          const diePlayer = args[0].add(0x18).readPointer()
+          const dieYou = Module.getBaseAddress("libil2cpp.so").add(0x697F3C)
+          const fdieYou = new NativeFunction(dieYou,"void",["pointer"])
+        
+          fdieYou(diePlayer)
+      
+      
+          }
+        })
+            },
+            off: function () {
+                // Add actions when the option is turned off
+                const playerStats3 = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+      Interceptor.detachAll();
+            }
+        })
+        
+                menu.addOption("option4", "GET FUEL | COIN", {
+            on: function () {
+                // Add actions when the option is turned on
+                    const LibBaseFuelCoin = Module.getBaseAddress("libil2cpp.so").add(0x6AA3BC) 
+   
+      Interceptor.attach(LibBaseFuelCoin,{
+    
+        onEnter(args){
+
+        const getFuel =  Module.getBaseAddress("libil2cpp.so").add(0x5EF394)
+        const fgetFuel = new NativeFunction(getFuel,"void",["pointer"])
+
+        fgetFuel(args[0])
+   
+        const getMoney =  Module.getBaseAddress("libil2cpp.so").add(0x5EF4D4)
+        const fgetMoney = new NativeFunction(getMoney,"void",["pointer"])
+
+        fgetMoney(args[0])
+    
+
+    
+      }
+    })
+                
+                
+            },
+            off: function () {
+                // Add actions when the option is turned off
+                    const LibBaseFuelCoin = Module.getBaseAddress("libil2cpp.so").add(0x6AA3BC)
+                      Interceptor.detachAll();
+                
+            }
+        })
+        
+        menu.addOption("option5", "GIANT PLAYER", {
+            on: function () {
+                // Add actions when the option is turned on
+                const baselib = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+
+Interceptor.attach(baselib,{
+
+    onEnter(args){
+
+        const phontomView = args[0].add(0xC).readPointer().add(0x3C).readU8()
+         
+        const isMine =  Module.getBaseAddress("libil2cpp.so").add(0x1A0B69C)
+        const fIsMine = new NativeFunction(isMine,"bool",["pointer"])
+
+        if(phontomView == false){
+
+            const compponent =  Module.getBaseAddress("libil2cpp.so").add(0x24909C0)
+            const fcompponent = new NativeFunction(compponent,"pointer",["pointer"])
+    
+            let transform =  fcompponent(args[0])
+    
+           
+            const setScale = Module.getBaseAddress("libil2cpp.so").add(0x249F940)
+            const fsetScale = new NativeFunction(setScale,"void",["pointer","float","float","float"])
+             
+            fsetScale(transform,4.6,45.0,4.6)
+               
+       
+        }else{
+
+        }
+    }
+})
+                
+                
+            },
+            off: function () {
+                // Add actions when the option is turned off
+                const baselib = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+
+             Interceptor.attach(baselib,{
+
+                 onEnter(args){
+
+                     const phontomView = args[0].add(0xC).readPointer().add(0x3C).readU8()
+         
+                     const isMine =  Module.getBaseAddress("libil2cpp.so").add(0x1A0B69C)
+                     const fIsMine = new NativeFunction(isMine,"bool",["pointer"])
+
+                     if(phontomView == false){
+
+                         const compponent =  Module.getBaseAddress("libil2cpp.so").add(0x24909C0)
+                         const fcompponent = new NativeFunction(compponent,"pointer",["pointer"])
+    
+                         let transform =  fcompponent(args[0])
+    
+           
+                         const setScale = Module.getBaseAddress("libil2cpp.so").add(0x249F940)
+                         const fsetScale = new NativeFunction(setScale,"void",["pointer","float","float","float"])
+             
+                         fsetScale(transform,1.6,1.6,1.6)
+               
+       
+                     }else{
+
+                     }
+                 }
+             })
+                
+                
+            }
+        })
+        
+        menu.addOption("option6", "TP KILL", {
+            on: function () {
+                // Add actions when the option is turned on
+                var posx
+                var posy
+                var posz
+                const baselib = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+
+                Interceptor.attach(baselib,{
+
+                    onEnter(args){
+
+                const phontomView = args[0].add(0xC).readPointer().add(0x3C).readU8()
+
+                const compponent =  Module.getBaseAddress("libil2cpp.so").add(0x24909C0)
+                const fcompponent = new NativeFunction(compponent,"pointer",["pointer"])
+
+                let transform =  fcompponent(args[0])
+
+                let vect = Memory.alloc(3*4)
+
+                        if(phontomView == false){
+
+                        const localPosition = Module.getBaseAddress("libil2cpp.so").add(0x249EA38)
+                        const flocalPosition = new NativeFunction(localPosition,"void",["pointer","pointer"])
+
+                        flocalPosition(transform,vect)
+
+                        posx = vect.readFloat()
+                        posy = vect.add(4).readFloat()
+                        posz = vect.add(8).readFloat()
+
+                    }
+                    const setPosition = Module.getBaseAddress("libil2cpp.so").add(0x249E90C)
+                    const fsetPosition = new NativeFunction(setPosition,"void",["pointer","float","float","float"])
+   
+                    fsetPosition(transform,posx,posy,posz)
+
                     }
                 })
+            },
+            off: function () {
+                // Add actions when the option is turned off
+                const baselib = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+                      Interceptor.detachAll();
+                
+            }
+        })
+        
+        
+        menu.addText(" MENU WEAPON", 16, "#FFFFFF");
 
-                // Add more options here...
+        menu.addOption("option7", "NO RECOIL", {
+            on: function () {
+                // Add actions when the option is turned on
+                const semrecoil = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+        Interceptor.attach(semrecoil,{
+          onEnter(args){
+        
+         args[0].add(0x24).readPointer().add(0x2C).readPointer().add(0x18).readPointer().add(0x20).writeFloat(0)
+         args[0].add(0x24).readPointer().add(0x2C).readPointer().add(0x18).readPointer().add(0x24).writeFloat(0)
+         args[0].add(0x24).readPointer().add(0x2C).readPointer().add(0x18).readPointer().add(0x28).writeFloat(0)
+          }
+        })
+            },
+            off: function () {
+                // Add actions when the option is turned off
+                const semrecoil = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+        Interceptor.attach(semrecoil,{
+          onEnter(args){
+        
+         args[0].add(0x24).readPointer().add(0x2C).readPointer().add(0x18).readPointer().add(0x20).writeFloat(0.20000000298023224)
+         args[0].add(0x24).readPointer().add(0x2C).readPointer().add(0x18).readPointer().add(0x24).writeFloat(0.5)
+         args[0].add(0x24).readPointer().add(0x2C).readPointer().add(0x18).readPointer().add(0x28).writeFloat(0)
+          }
+        })
+            }
+        })
+        
+        
+        menu.addText("TELEPORT NOMISK", 16, "#FFFFFF");
+        
+        menu.addOption("option8", "CENTER CITY", {
+            on: function () {
+                // Add actions when the option is turned on
+                const baselib2 = Module.getBaseAddress("libil2cpp.so").add(0x688670)
 
-                menu.start()
+                    Interceptor.attach(baselib2,{
+
+                        onEnter(args){
+
+                            const compponent =  Module.getBaseAddress("libil2cpp.so").add(0x24909C0)
+                            const fcompponent = new NativeFunction(compponent,"pointer",["pointer"])
+    
+                            let transform =  fcompponent(args[0])
+    
+           
+                            const setPosition = Module.getBaseAddress("libil2cpp.so").add(0x249E90C)
+                            const fsetPosition = new NativeFunction(setPosition,"void",["pointer","float","float","float"])
+             
+                            fsetPosition(transform,453.8675842285156,116.40999603271484,498.30303955078125)
+
+                        }
+                    })
+            },
+            off: function () {
+                // Add actions when the option is turned off
+                const baselib2 = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+                      Interceptor.detachAll();
+            }
+        })
+        
+        menu.addOption("option9", "EXTRAÇÃO", {
+            on: function () {
+                // Add actions when the option is turned on
+                const baselib = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+
+                    Interceptor.attach(baselib,{
+
+                        onEnter(args){
+
+                            const compponent =  Module.getBaseAddress("libil2cpp.so").add(0x24909C0)
+                            const fcompponent = new NativeFunction(compponent,"pointer",["pointer"])
+    
+                            let transform =  fcompponent(args[0])
+    
+           
+                            const setPosition = Module.getBaseAddress("libil2cpp.so").add(0x249E90C)
+                            const fsetPosition = new NativeFunction(setPosition,"void",["pointer","float","float","float"])
+             
+                            fsetPosition(transform,154.3650360107422,113.21358489990234,485.50927734375)
+
+                        }
+                    })
+            },
+            off: function () {
+                // Add actions when the option is turned off
+                const baselib = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+                      Interceptor.detachAll();
+            }
+        })
+        
+       
+              menu.addText("TELEPORT VALLEY ", 16, "#FFFFFF");
+        
+        menu.addOption("option10", "CENTER CITY", {
+            on: function () {
+                // Add actions when the option is turned on
+                const baselib3 = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+
+                    Interceptor.attach(baselib3,{
+
+                        onEnter(args){
+
+                            const compponent =  Module.getBaseAddress("libil2cpp.so").add(0x24909C0)
+                            const fcompponent = new NativeFunction(compponent,"pointer",["pointer"])
+    
+                            let transform =  fcompponent(args[0])
+    
+           
+                            const setPosition = Module.getBaseAddress("libil2cpp.so").add(0x249E90C)
+                            const fsetPosition = new NativeFunction(setPosition,"void",["pointer","float","float","float"])
+             
+                            fsetPosition(transform,521.9363403320313,85.45307159423828,430.6603698730469)
+
+                        }
+                    })
+            },
+            off: function () {
+                // Add actions when the option is turned off
+                const baselib3 = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+                      Interceptor.detachAll();
+            }
+        })
+        
+        menu.addOption("option11", "EXTRAÇÃO", {
+            on: function () {
+                // Add actions when the option is turned on
+                const baselib4 = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+
+                    Interceptor.attach(baselib4,{
+
+                        onEnter(args){
+
+                            const compponent =  Module.getBaseAddress("libil2cpp.so").add(0x24909C0)
+                            const fcompponent = new NativeFunction(compponent,"pointer",["pointer"])
+    
+                            let transform =  fcompponent(args[0])
+    
+           
+                            const setPosition = Module.getBaseAddress("libil2cpp.so").add(0x249E90C)
+                            const fsetPosition = new NativeFunction(setPosition,"void",["pointer","float","float","float"])
+             
+                            fsetPosition(transform,151.2646026611328,110.85526275634766,535.8716430664063)
+
+                        }
+                    })
+ 
+            },
+            off: function () {
+                // Add actions when the option is turned off
+                const baselib4 = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+                      Interceptor.detachAll();
+            }
+        })
+        
+        
+        
+        menu.addText("MENU LIFE | ESTAMINA", 16, "#FFFFFF");
+        
+        
+
+        
+            // Endere莽o base para modificar vida e estamina
+        const baseAddress = Module.getBaseAddress("libil2cpp.so").add(0x688670);
+
+        // Vari谩veis para controlar os interceptores e os valores da vida e da estamina
+        let lifeInterceptor = null;
+        let staminaInterceptor = null;
+        let lifeValue = 0;
+        let staminaValue = 0;
+
+        // Fun莽茫o para modificar vida e estamina
+        function setLifeAndStamina(value, offset) {
+            if (value >= 2) {
+                if (offset === 0x18) {
+                    // Modificar a vida
+                    if (!lifeInterceptor) {
+                        // Anexar o interceptor para modificar a vida
+                        lifeInterceptor = Interceptor.attach(baseAddress, {
+                            onEnter(args) {
+                                // Salvar o valor atual da vida
+                                lifeValue = args[0].add(0x18).readPointer().add(0x18).readFloat();
+                                // Modificar o valor da vida
+                                args[0].add(0x18).readPointer().add(offset).writeFloat(value);
+                            }
+                        });
+                    }
+                } else {
+                    // Modificar a estamina
+                    if (!staminaInterceptor) {
+                        // Anexar o interceptor para modificar a estamina
+                        staminaInterceptor = Interceptor.attach(baseAddress, {
+                            onEnter(args) {
+                                // Salvar o valor atual da estamina
+                                staminaValue = args[0].add(0x18).readPointer().add(0x1C).readFloat();
+                                // Modificar o valor da estamina
+                                args[0].add(0x18).readPointer().add(offset).writeFloat(value);
+                            }
+                        });
+                    }
+                }
             } else {
-                console.log("Chave inválida!");
+                if (offset === 0x18) {
+                    // Parar de modificar a vida
+                    if (lifeInterceptor) {
+                        // Desanexar o interceptor da vida
+                        lifeInterceptor.detach();
+                        lifeInterceptor = null;
+                    }
+                } else {
+                    // Parar de modificar a estamina
+                    if (staminaInterceptor) {
+                        // Desanexar o interceptor da estamina
+                        staminaInterceptor.detach();
+                        staminaInterceptor = null;
+                    }
+                }
             }
         }
 
-        // Função para mostrar a caixa de texto para inserir a chave
-        function showKeyInput() {
-            const key = menu.addTextInput("Insira a chave:");
-            menu.addButton("Enviar", function () {
-                const enteredKey = key.getText();
-                startMenu(enteredKey);
-            });
-        }
+        // Adicionando a barra para modificar a vida
+        menu.addSeekBar("SET LIFE:", 1, 1, 99, function(changed, state) {
+            if (state === "end") {
+                setLifeAndStamina(changed, 0x18);
+            }
+        });
 
-        // Mostrar a caixa de texto para inserir a chave
-        showKeyInput();
+        // Adicionando a barra para modificar a estamina
+        menu.addSeekBar("SET ESTAMINA:", 1, 1, 99, function(changed, state) {
+            if (state === "end") {
+                setLifeAndStamina(changed, 0x1C);
+            }
+        });
+
+        // Interceptores para restaurar vida e estamina quando desativadas
+        Interceptor.attach(baseAddress, {
+            onEnter(args) {
+                // Restaurar a vida para o valor salvo anteriormente
+                if (!lifeInterceptor && staminaInterceptor !== null) {
+                    args[0].add(0x18).readPointer().add(0x18).writeFloat(lifeValue);
+                }
+                // Restaurar a estamina para o valor salvo anteriormente
+                if (!staminaInterceptor && lifeInterceptor !== null) {
+                    args[0].add(0x18).readPointer().add(0x1C).writeFloat(staminaValue);
+                }
+            }
+        });
+
+        menu.start()
 
     })
+
 })
