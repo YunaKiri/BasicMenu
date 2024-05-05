@@ -347,23 +347,13 @@ class Menu {
 
 Java.perform(function () {
 
-    var validKey = ("123") // Adicione sua chave aqui
+    const validKey = ("123") // Adicione sua chave aqui
     
     Java.scheduleOnMainThread(function () {
         const classLoader = getClassLoader();
         const mainActivity = getMainActivity(classLoader);
         const menu = new Menu(classLoader, mainActivity);
         
-        // Função para verificar se a chave é válida
-        function checkKey(key) {
-            return key === validKey;
-        }
-        
-        // Função para habilitar ou desabilitar todas as opções com base na chave
-        function enableMenuOptions(key) {
-            const isKeyValid = checkKey(key);
-            menu.setEnabled(isKeyValid);
-        }
         
         // Definir o título e a cor que aparecerão com o menu minimizado.
         menu.createMenuStart("⚙️", 25, "#FFFFFF");
@@ -382,14 +372,8 @@ Java.perform(function () {
 
         // Adicionar campo de entrada para a chave
         menu.addText("Insira a chave:", 16, "#FFFFFF");
-        menu.addEditText("", 16, "#FFFFFF", function (text) {
-            enableMenuOptions(text);
-        });
-
-        // Adicionar texto com a função setText
-        menu.addText("Este é um texto de exemplo.", 16, "#FFFFFF");
-
-        // ...
+        
+        menu.addEditText("", 16, "#FFFFFF");
 
         // Aqui vão as funções do menu
         
