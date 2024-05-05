@@ -28,9 +28,7 @@ function getClassLoader() {
 
         View_OnClickListener: Java.use("android.view.View$OnClickListener"),
 
-        SeekBar: Java.use("android.widget.SeekBar"), // Adicionando definição para SeekBar
-
-        EditText: Java.use("android.widget.EditText") // Adicionando definição para EditText
+        SeekBar: Java.use("android.widget.SeekBar") // Adicionando defini莽茫o para SeekBar
 
     }
 
@@ -335,7 +333,9 @@ createMenuBarTitle(title, color, size) {
 
         const colorOn = this.#colorOn
 
-        const colorOff = this.#colorOffconst optionOnClickListener = Java.registerClass({
+        const colorOff = this.#colorOff
+
+        const optionOnClickListener = Java.registerClass({
 
             name: "com.example." + id,
 
@@ -402,6 +402,33 @@ createMenuBarTitle(title, color, size) {
         this.#createOptionClickEvent(id, option, callbacks)
 
     }
+    
+    
+    addTextInput(hint, callback) {
+    const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(this.#MATCH_PARENT, this.#WRAP_CONTENT);
+    const margin = pixelDensityToPixels(this.#activity, 5);
+    
+    const editText = this.#classLoader.EditText.$new(this.#activity);
+    editText.setHint(this.#classLoader.String.$new(hint));
+    editText.setLayoutParams(layoutParams);
+    editText.setPadding(0, 0, 0, margin);
+
+    const TextWatcher = Java.use("android.text.TextWatcher");
+    const TextWatcherImplementation = Java.registerClass({
+        name: "com.example.TextWatcher" + Math.floor(Math.random() * 1000),
+        implements: [TextWatcher],
+        methods: {
+            beforeTextChanged: function(s, start, count, after) {},
+            onTextChanged: function(s, start, before, count) {},
+            afterTextChanged: function(editable) {
+                callback(editable.toString());
+            }
+        }
+    });
+    
+    editText.addTextChangedListener(TextWatcherImplementation.$new());
+    this.#menuScrollLayout.addView(editText);
+}
 
 
 
@@ -549,58 +576,6 @@ createMenuBarTitle(title, color, size) {
 
 
 
-    addTextInput(hint, initialText, callback) {
-
-        const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(this.#MATCH_PARENT, this.#WRAP_CONTENT);
-
-        const margin = pixelDensityToPixels(this.#activity,1);
-
-        const editText = this.#classLoader.EditText.$new(this.#activity);
-
-        layoutParams.setMargins(0, 0, 0, margin);
-
-        editText.setLayoutParams(layoutParams);
-
-        editText.setHint(this.#classLoader.String.$new(hint));
-
-        editText.setText(this.#classLoader.String.$new(initialText));
-
-
-
-        const TextChangedListener = Java.use("android.text.TextWatcher");
-
-        const TextChangedListenerImplementation = Java.registerClass({
-
-            name: "com.example.TextChangedListener" + Math.floor(Math.random() * 1000),
-
-            implements: [TextChangedListener],
-
-            methods: {
-
-                beforeTextChanged(s, start, count, after) {},
-
-                onTextChanged(s, start, before, count) {},
-
-                afterTextChanged(s) {
-
-                    callback(s.toString());
-
-                }
-
-            }
-
-        });
-
-        editText.addTextChangedListener(TextChangedListenerImplementation.$new());
-
-
-
-        this.#menuScrollLayout.addView(editText);
-
-    }
-
-
-
     #createMainLayoutEvent() {
 
         const mainLayout = this.#mainLayout
@@ -712,7 +687,7 @@ createMenuBarTitle(title, color, size) {
         this.#drawMenuStart()
 
         this.#drawMenuBarLayout()
-        
+
         this.#drawMenuBarTitle()
 
         this.#drawMenuOptions()
@@ -723,6 +698,47 @@ createMenuBarTitle(title, color, size) {
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -773,6 +789,10 @@ Java.perform(function () {
 
 
         // Add options
+        
+        menu.addTextInput("Digite aqui", function(text) {
+        
+        })
         
         menu.addText("MENU PLAYER", 16, "#FFFFFF");
         
