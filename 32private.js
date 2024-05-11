@@ -765,10 +765,11 @@ Java.perform(function () {
         
         menu.addText("MENU PLAYER", 16, "#FFFFFF");
         
+        // Gos Mod Atualizado 
         menu.addOption("option1", "GOD MOD", {
             on: function () {
                 // Add actions when the option is turned on
-                const morto = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+                const morto = Module.getBaseAddress("libil2cpp.so").add(0x686CD4)
 
 Interceptor.attach(morto,{
   onEnter(args){
@@ -781,7 +782,7 @@ Interceptor.attach(morto,{
             off: function () {
                 // Add actions when the option is turned off
                 
-                const morto = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+                const morto = Module.getBaseAddress("libil2cpp.so").add(0x686CD4)
 
 Interceptor.attach(morto,{
   onEnter(args){
@@ -852,12 +853,12 @@ Interceptor.attach(morto,{
     
         onEnter(args){
 
-        const getFuel =  Module.getBaseAddress("libil2cpp.so").add(0x5EABE4)
+        const getFuel =  Module.getBaseAddress("libil2cpp.so").add(0x5EAAA4)
         const fgetFuel = new NativeFunction(getFuel,"void",["pointer"])
 
         fgetFuel(args[0])
    
-        const getMoney =  Module.getBaseAddress("libil2cpp.so").add(0x5EF4D4)
+        const getMoney =  Module.getBaseAddress("libil2cpp.so").add(0x5EABE4)
         const fgetMoney = new NativeFunction(getMoney,"void",["pointer"])
 
         fgetMoney(args[0])
@@ -949,14 +950,14 @@ Interceptor.attach(baselib,{
                 
             }
         })
-        
+        // atualizado 
         menu.addOption("option6", "TP KILL", {
             on: function () {
                 // Add actions when the option is turned on
                 var posx
                 var posy
                 var posz
-                const baselib = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+                const baselib = Module.getBaseAddress("libil2cpp.so").add(0x686CD4)
 
                 Interceptor.attach(baselib,{
 
@@ -964,7 +965,7 @@ Interceptor.attach(baselib,{
 
                 const phontomView = args[0].add(0xC).readPointer().add(0x3C).readU8()
 
-                const compponent =  Module.getBaseAddress("libil2cpp.so").add(0x24909C0)
+                const compponent =  Module.getBaseAddress("libil2cpp.so").add(0x2474764)
                 const fcompponent = new NativeFunction(compponent,"pointer",["pointer"])
 
                 let transform =  fcompponent(args[0])
@@ -973,7 +974,7 @@ Interceptor.attach(baselib,{
 
                         if(phontomView == false){
 
-                        const localPosition = Module.getBaseAddress("libil2cpp.so").add(0x249EA38)
+                        const localPosition = Module.getBaseAddress("libil2cpp.so").add(0x24827D8)
                         const flocalPosition = new NativeFunction(localPosition,"void",["pointer","pointer"])
 
                         flocalPosition(transform,vect)
@@ -983,7 +984,7 @@ Interceptor.attach(baselib,{
                         posz = vect.add(8).readFloat()
 
                     }
-                    const setPosition = Module.getBaseAddress("libil2cpp.so").add(0x249E90C)
+                    const setPosition = Module.getBaseAddress("libil2cpp.so").add(0x24826AC)
                     const fsetPosition = new NativeFunction(setPosition,"void",["pointer","float","float","float"])
    
                     fsetPosition(transform,posx,posy,posz)
@@ -993,7 +994,7 @@ Interceptor.attach(baselib,{
             },
             off: function () {
                 // Add actions when the option is turned off
-                const baselib = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+                const baselib = Module.getBaseAddress("libil2cpp.so").add(0x686CD4)
                       Interceptor.detachAll();
                 
             }
