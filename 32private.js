@@ -256,19 +256,14 @@ class Menu {
 
 
 
-    createMenuBarTitle(title, color) {
-
-        const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(this.#WRAP_CONTENT, this.#WRAP_CONTENT)
-
-        this.#menuBarTitle = this.#classLoader.TextView.$new(this.#activity)
-
-        this.#menuBarTitle.setLayoutParams(layoutParams)
-
-        this.#menuBarTitle.setText(this.#classLoader.String.$new(title))
-
-        this.#menuBarTitle.setTextColor(this.#classLoader.Color.parseColor(color))
-
-    }
+createMenuBarTitle(title, color, size) {
+    const layoutParams = this.#classLoader.LinearLayout_LayoutParams.$new(this.#WRAP_CONTENT, this.#WRAP_CONTENT);
+    this.#menuBarTitle = this.#classLoader.TextView.$new(this.#activity);
+    this.#menuBarTitle.setLayoutParams(layoutParams);
+    this.#menuBarTitle.setText(this.#classLoader.String.$new(title));
+    this.#menuBarTitle.setTextColor(this.#classLoader.Color.parseColor(color));
+    this.#menuBarTitle.setTextSize(size); // Adiciona o tamanho do texto
+}
 
 
 
@@ -554,10 +549,6 @@ class Menu {
 
 
 
-
-
-
-
     #createMainLayoutEvent() {
 
         const mainLayout = this.#mainLayout
@@ -679,33 +670,105 @@ class Menu {
     }
 
 
-
-
-
-   
-
-
-
-
-
-
-
-
-
-
-
 }
 
 
 
-//options on/off
 
-// GOD MOD
-const option1 = {
 
-    on() {
 
-const morto = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Java.perform(function () {
+
+    Java.scheduleOnMainThread(function () {
+
+        const classLoader = getClassLoader()
+
+        const mainActivity = getMainActivity(classLoader)
+
+        const menu = new Menu(classLoader, mainActivity)
+
+        // Set the title and color that will appear with the minimized menu.
+        menu.createMenuStart("⚙️", 25, "#FFFFFF")
+
+        // Set the menu layout color and size.
+        menu.createMenuLayout("#333333", 300)
+
+        // Set the menu bar color.
+        menu.createMenuBarLayout("#000000")
+
+        // Set the name and name color.
+        menu.createMenuBarTitle("YUNA MENU", "#FFFFFF", 30);
+
+        // Set the color of on and off options.
+        menu.createMenuOptionsLayout("#00FF00", "#CCCCCC")
+
+
+        // Add options
+        
+        menu.addText("MENU PLAYER", 16, "#FFFFFF");
+        
+        menu.addOption("option1", "GOD MOD", {
+            on: function () {
+                // Add actions when the option is turned on
+                const morto = Module.getBaseAddress("libil2cpp.so").add(0x688670)
 
 Interceptor.attach(morto,{
   onEnter(args){
@@ -714,13 +777,11 @@ Interceptor.attach(morto,{
   
   }
 })
-
-
-    },
-
-    off() {
-
-const morto = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+            },
+            off: function () {
+                // Add actions when the option is turned off
+                
+                const morto = Module.getBaseAddress("libil2cpp.so").add(0x688670)
 
 Interceptor.attach(morto,{
   onEnter(args){
@@ -729,19 +790,13 @@ Interceptor.attach(morto,{
   
   }
 })
-
-
-    }
-
-}
-
-
-//  MATAR TODOS OS ZUMBI 0x5FEC9C 
-const option2 = {
-
-    on() {
-
-      const playerStats = Module.getBaseAddress("libil2cpp.so").add(0x60397C)
+            }
+        })
+        
+        menu.addOption("option2", "KILL ALL ZOMBIE", {
+            on: function () {
+                // Add actions when the option is turned on
+                const playerStats = Module.getBaseAddress("libil2cpp.so").add(0x60397C)
         Interceptor.attach(playerStats,{
           onEnter(args){
         
@@ -755,62 +810,18 @@ const option2 = {
         
          }
         })
-
-    },
-
-    off() {
-
-     const playerStats = Module.getBaseAddress("libil2cpp.so").add(0x60397C)
+            },
+            off: function () {
+                // Add actions when the option is turned off
+                const playerStats = Module.getBaseAddress("libil2cpp.so").add(0x60397C)
       Interceptor.detachAll();
-
-    }
-
-}
-
-
-// NO WEAPON RECOIL (PlayerController 0x6828D0)
-const option3 = {
-
-    on() {
-
-       
-       const semrecoil = Module.getBaseAddress("libil2cpp.so").add(0x688670)
-        Interceptor.attach(semrecoil,{
-          onEnter(args){
-        
-         args[0].add(0x24).readPointer().add(0x2C).readPointer().add(0x18).readPointer().add(0x20).writeFloat(0)
-         args[0].add(0x24).readPointer().add(0x2C).readPointer().add(0x18).readPointer().add(0x24).writeFloat(0)
-         args[0].add(0x24).readPointer().add(0x2C).readPointer().add(0x18).readPointer().add(0x28).writeFloat(0)
-          }
+            }
         })
-
-
-    },
-
-    off() {
-
-       const semrecoil = Module.getBaseAddress("libil2cpp.so").add(0x688670)
-        Interceptor.attach(semrecoil,{
-          onEnter(args){
         
-         args[0].add(0x24).readPointer().add(0x2C).readPointer().add(0x18).readPointer().add(0x20).writeFloat(0.20000000298023224)
-         args[0].add(0x24).readPointer().add(0x2C).readPointer().add(0x18).readPointer().add(0x24).writeFloat(0.5)
-         args[0].add(0x24).readPointer().add(0x2C).readPointer().add(0x18).readPointer().add(0x28).writeFloat(0)
-          }
-        })
-     
-    }
-
-}
-
-
-
-
-const option4 = {
-
-    on() {
-    
-    const playerStats3 = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+        menu.addOption("option3", "KILL ME", {
+            on: function () {
+                // Add actions when the option is turned on
+                const playerStats3 = Module.getBaseAddress("libil2cpp.so").add(0x688670)
         Interceptor.attach(playerStats3,{
           onEnter(args){
        
@@ -823,29 +834,53 @@ const option4 = {
       
           }
         })
-
-
-
-    },
-
-    off() {
-
-     const playerStats3 = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+            },
+            off: function () {
+                // Add actions when the option is turned off
+                const playerStats3 = Module.getBaseAddress("libil2cpp.so").add(0x688670)
       Interceptor.detachAll();
-
-
-    }
-
-}
-
-
-
-const option5 = {
-
-    on() {
+            }
+        })
+        
+        // atualizado 
+                menu.addOption("option4", "GET FUEL | COIN", {
+            on: function () {
+                // Add actions when the option is turned on
+                    const LibBaseFuelCoin = Module.getBaseAddress("libil2cpp.so").add(0x6A8D2C) 
+   
+      Interceptor.attach(LibBaseFuelCoin,{
     
+        onEnter(args){
+
+        const getFuel =  Module.getBaseAddress("libil2cpp.so").add(0x5EABE4)
+        const fgetFuel = new NativeFunction(getFuel,"void",["pointer"])
+
+        fgetFuel(args[0])
+   
+        const getMoney =  Module.getBaseAddress("libil2cpp.so").add(0x5EF4D4)
+        const fgetMoney = new NativeFunction(getMoney,"void",["pointer"])
+
+        fgetMoney(args[0])
     
-    const baselib = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+
+    
+      }
+    })
+                
+                
+            },
+            off: function () {
+                // Add actions when the option is turned off
+                    const LibBaseFuelCoin = Module.getBaseAddress("libil2cpp.so").add(0x6A8D2C)
+                      Interceptor.detachAll();
+                
+            }
+        })
+        
+        menu.addOption("option5", "GIANT PLAYER", {
+            on: function () {
+                // Add actions when the option is turned on
+                const baselib = Module.getBaseAddress("libil2cpp.so").add(0x688670)
 
 Interceptor.attach(baselib,{
 
@@ -875,139 +910,260 @@ Interceptor.attach(baselib,{
         }
     }
 })
+                
+                
+            },
+            off: function () {
+                // Add actions when the option is turned off
+                const baselib = Module.getBaseAddress("libil2cpp.so").add(0x688670)
 
+             Interceptor.attach(baselib,{
 
-    },
+                 onEnter(args){
 
-    off() {
-    
-    
-    const baselib = Module.getBaseAddress("libil2cpp.so").add(0x688670)
-
-Interceptor.attach(baselib,{
-
-    onEnter(args){
-
-        const phontomView = args[0].add(0xC).readPointer().add(0x3C).readU8()
+                     const phontomView = args[0].add(0xC).readPointer().add(0x3C).readU8()
          
-        const isMine =  Module.getBaseAddress("libil2cpp.so").add(0x1A0B69C)
-        const fIsMine = new NativeFunction(isMine,"bool",["pointer"])
+                     const isMine =  Module.getBaseAddress("libil2cpp.so").add(0x1A0B69C)
+                     const fIsMine = new NativeFunction(isMine,"bool",["pointer"])
 
-        if(phontomView == false){
+                     if(phontomView == false){
 
-            const compponent =  Module.getBaseAddress("libil2cpp.so").add(0x24909C0)
-            const fcompponent = new NativeFunction(compponent,"pointer",["pointer"])
+                         const compponent =  Module.getBaseAddress("libil2cpp.so").add(0x24909C0)
+                         const fcompponent = new NativeFunction(compponent,"pointer",["pointer"])
     
-            let transform =  fcompponent(args[0])
+                         let transform =  fcompponent(args[0])
     
            
-            const setScale = Module.getBaseAddress("libil2cpp.so").add(0x249F940)
-            const fsetScale = new NativeFunction(setScale,"void",["pointer","float","float","float"])
+                         const setScale = Module.getBaseAddress("libil2cpp.so").add(0x249F940)
+                         const fsetScale = new NativeFunction(setScale,"void",["pointer","float","float","float"])
              
-            fsetScale(transform,0.6,0.6,0.6)
+                         fsetScale(transform,1.6,1.6,1.6)
                
        
-        }else{
+                     }else{
 
-        }
-    }
-})
-
-     
-
+                     }
+                 }
+             })
+                
+                
+            }
+        })
         
-    }
+        menu.addOption("option6", "TP KILL", {
+            on: function () {
+                // Add actions when the option is turned on
+                var posx
+                var posy
+                var posz
+                const baselib = Module.getBaseAddress("libil2cpp.so").add(0x688670)
 
-}
+                Interceptor.attach(baselib,{
 
+                    onEnter(args){
 
+                const phontomView = args[0].add(0xC).readPointer().add(0x3C).readU8()
 
-const option6 = {
+                const compponent =  Module.getBaseAddress("libil2cpp.so").add(0x24909C0)
+                const fcompponent = new NativeFunction(compponent,"pointer",["pointer"])
 
-    on() {
-    const LibBaseFuelCoin = Module.getBaseAddress("libil2cpp.so").add(0x6AA3BC) 
+                let transform =  fcompponent(args[0])
+
+                let vect = Memory.alloc(3*4)
+
+                        if(phontomView == false){
+
+                        const localPosition = Module.getBaseAddress("libil2cpp.so").add(0x249EA38)
+                        const flocalPosition = new NativeFunction(localPosition,"void",["pointer","pointer"])
+
+                        flocalPosition(transform,vect)
+
+                        posx = vect.readFloat()
+                        posy = vect.add(4).readFloat()
+                        posz = vect.add(8).readFloat()
+
+                    }
+                    const setPosition = Module.getBaseAddress("libil2cpp.so").add(0x249E90C)
+                    const fsetPosition = new NativeFunction(setPosition,"void",["pointer","float","float","float"])
    
-      Interceptor.attach(LibBaseFuelCoin,{
+                    fsetPosition(transform,posx,posy,posz)
+
+                    }
+                })
+            },
+            off: function () {
+                // Add actions when the option is turned off
+                const baselib = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+                      Interceptor.detachAll();
+                
+            }
+        })
+        
+        
+        menu.addText(" MENU WEAPON", 16, "#FFFFFF");
+
+        menu.addOption("option7", "NO RECOIL", {
+            on: function () {
+                // Add actions when the option is turned on
+                const semrecoil = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+        Interceptor.attach(semrecoil,{
+          onEnter(args){
+        
+         args[0].add(0x24).readPointer().add(0x2C).readPointer().add(0x18).readPointer().add(0x20).writeFloat(0)
+         args[0].add(0x24).readPointer().add(0x2C).readPointer().add(0x18).readPointer().add(0x24).writeFloat(0)
+         args[0].add(0x24).readPointer().add(0x2C).readPointer().add(0x18).readPointer().add(0x28).writeFloat(0)
+          }
+        })
+            },
+            off: function () {
+                // Add actions when the option is turned off
+                const semrecoil = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+        Interceptor.attach(semrecoil,{
+          onEnter(args){
+        
+         args[0].add(0x24).readPointer().add(0x2C).readPointer().add(0x18).readPointer().add(0x20).writeFloat(0.20000000298023224)
+         args[0].add(0x24).readPointer().add(0x2C).readPointer().add(0x18).readPointer().add(0x24).writeFloat(0.5)
+         args[0].add(0x24).readPointer().add(0x2C).readPointer().add(0x18).readPointer().add(0x28).writeFloat(0)
+          }
+        })
+            }
+        })
+        
+        
+        menu.addText("TELEPORT NOMISK", 16, "#FFFFFF");
+        
+        menu.addOption("option8", "CENTER CITY", {
+            on: function () {
+                // Add actions when the option is turned on
+                const baselib2 = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+
+                    Interceptor.attach(baselib2,{
+
+                        onEnter(args){
+
+                            const compponent =  Module.getBaseAddress("libil2cpp.so").add(0x24909C0)
+                            const fcompponent = new NativeFunction(compponent,"pointer",["pointer"])
     
-        onEnter(args){
-
-        const getFuel =  Module.getBaseAddress("libil2cpp.so").add(0x5EF394)
-        const fgetFuel = new NativeFunction(getFuel,"void",["pointer"])
-
-        fgetFuel(args[0])
-   
-        const getMoney =  Module.getBaseAddress("libil2cpp.so").add(0x5EF4D4)
-        const fgetMoney = new NativeFunction(getMoney,"void",["pointer"])
-
-        fgetMoney(args[0])
+                            let transform =  fcompponent(args[0])
     
+           
+                            const setPosition = Module.getBaseAddress("libil2cpp.so").add(0x249E90C)
+                            const fsetPosition = new NativeFunction(setPosition,"void",["pointer","float","float","float"])
+             
+                            fsetPosition(transform,453.8675842285156,116.40999603271484,498.30303955078125)
 
+                        }
+                    })
+            },
+            off: function () {
+                // Add actions when the option is turned off
+                const baselib2 = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+                      Interceptor.detachAll();
+            }
+        })
+        
+        menu.addOption("option9", "EXTRAÇÃO", {
+            on: function () {
+                // Add actions when the option is turned on
+                const baselib = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+
+                    Interceptor.attach(baselib,{
+
+                        onEnter(args){
+
+                            const compponent =  Module.getBaseAddress("libil2cpp.so").add(0x24909C0)
+                            const fcompponent = new NativeFunction(compponent,"pointer",["pointer"])
     
-      }
-    })
+                            let transform =  fcompponent(args[0])
+    
+           
+                            const setPosition = Module.getBaseAddress("libil2cpp.so").add(0x249E90C)
+                            const fsetPosition = new NativeFunction(setPosition,"void",["pointer","float","float","float"])
+             
+                            fsetPosition(transform,154.3650360107422,113.21358489990234,485.50927734375)
 
+                        }
+                    })
+            },
+            off: function () {
+                // Add actions when the option is turned off
+                const baselib = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+                      Interceptor.detachAll();
+            }
+        })
+        
+       
+              menu.addText("TELEPORT VALLEY ", 16, "#FFFFFF");
+        
+        menu.addOption("option10", "CENTER CITY", {
+            on: function () {
+                // Add actions when the option is turned on
+                const baselib3 = Module.getBaseAddress("libil2cpp.so").add(0x688670)
 
+                    Interceptor.attach(baselib3,{
+
+                        onEnter(args){
+
+                            const compponent =  Module.getBaseAddress("libil2cpp.so").add(0x24909C0)
+                            const fcompponent = new NativeFunction(compponent,"pointer",["pointer"])
+    
+                            let transform =  fcompponent(args[0])
+    
+           
+                            const setPosition = Module.getBaseAddress("libil2cpp.so").add(0x249E90C)
+                            const fsetPosition = new NativeFunction(setPosition,"void",["pointer","float","float","float"])
+             
+                            fsetPosition(transform,521.9363403320313,85.45307159423828,430.6603698730469)
+
+                        }
+                    })
+            },
+            off: function () {
+                // Add actions when the option is turned off
+                const baselib3 = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+                      Interceptor.detachAll();
+            }
+        })
+        
+        menu.addOption("option11", "EXTRAÇÃO", {
+            on: function () {
+                // Add actions when the option is turned on
+                const baselib4 = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+
+                    Interceptor.attach(baselib4,{
+
+                        onEnter(args){
+
+                            const compponent =  Module.getBaseAddress("libil2cpp.so").add(0x24909C0)
+                            const fcompponent = new NativeFunction(compponent,"pointer",["pointer"])
+    
+                            let transform =  fcompponent(args[0])
+    
+           
+                            const setPosition = Module.getBaseAddress("libil2cpp.so").add(0x249E90C)
+                            const fsetPosition = new NativeFunction(setPosition,"void",["pointer","float","float","float"])
+             
+                            fsetPosition(transform,151.2646026611328,110.85526275634766,535.8716430664063)
+
+                        }
+                    })
+ 
+            },
+            off: function () {
+                // Add actions when the option is turned off
+                const baselib4 = Module.getBaseAddress("libil2cpp.so").add(0x688670)
+                      Interceptor.detachAll();
+            }
+        })
         
         
-    },
-
-    off() {
-
-
+        
+        menu.addText("MENU LIFE | ESTAMINA", 16, "#FFFFFF");
         
         
-    }
-}
 
-
-
-
-
-Java.perform(function () {
-
-    Java.scheduleOnMainThread(function () {
-
-        const classLoader = getClassLoader()
-
-        const mainActivity = getMainActivity(classLoader)
-
-        const menu = new Menu(classLoader, mainActivity)
-
-        //set name and color that will appear with the menu minimized.
-
-        menu.createMenuStart("饟啢", 30, "#FFFFFF")
-
-        //set menu layout color and size
-
-        menu.createMenuLayout("#333333", 250)
-
-        //set cor bar color
-
-        menu.createMenuBarLayout("#000000")
-
-        //name and name color
-
-        menu.createMenuBarTitle("____饟啢 VORAZ MENU 饟啢____", "#FFFFFF");
-
-        //set color of on and off options.
-
-        menu.createMenuOptionsLayout("#00FF00", "#CCCCCC")
-
-        //id, name and object with on and off functions
-
-        menu.addOption("option1", "GOD MOD", option1)
         
-        menu.addOption("option2", "KILL ALL ZOMBIE", option2)
-
-        menu.addOption("option3", "NO RECOIL", option3)
-        
-        menu.addOption("option4", "KILL ME", option4)
-        
-        menu.addOption("option5", "GIANT ENEMY", option5)
-        
-        menu.addOption("option6", "GET FUEL/COIN", option6)
-
-    // Endere莽o base para modificar vida e estamina
+            // Endere莽o base para modificar vida e estamina
         const baseAddress = Module.getBaseAddress("libil2cpp.so").add(0x688670);
 
         // Vari谩veis para controlar os interceptores e os valores da vida e da estamina
@@ -1092,8 +1248,6 @@ Java.perform(function () {
                 }
             }
         });
-
-
 
         menu.start()
 
