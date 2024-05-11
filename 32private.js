@@ -768,7 +768,7 @@ Java.perform(function () {
         menu.addOption("option1", "GOD MOD", {
             on: function () {
                 // Add actions when the option is turned on
-                const morto = Module.getBaseAddress("libil2cpp.so").add(0x686CD4)
+                const morto = Module.getBaseAddress("libil2cpp.so").add(0x688670)
 
 Interceptor.attach(morto,{
   onEnter(args){
@@ -781,7 +781,7 @@ Interceptor.attach(morto,{
             off: function () {
                 // Add actions when the option is turned off
                 
-                const morto = Module.getBaseAddress("libil2cpp.so").add(0x686CD4)
+                const morto = Module.getBaseAddress("libil2cpp.so").add(0x688670)
 
 Interceptor.attach(morto,{
   onEnter(args){
@@ -796,13 +796,13 @@ Interceptor.attach(morto,{
         menu.addOption("option2", "KILL ALL ZOMBIE", {
             on: function () {
                 // Add actions when the option is turned on
-                const playerStats = Module.getBaseAddress("libil2cpp.so").add(0x5FF08C)
+                const playerStats = Module.getBaseAddress("libil2cpp.so").add(0x60397C)
         Interceptor.attach(playerStats,{
           onEnter(args){
         
          const enemyHealth = args[0].add(0x10).readPointer().add(0x14).readPointer()
         
-         const die = Module.getBaseAddress("libil2cpp.so").add(0x5F9DAC)
+         const die = Module.getBaseAddress("libil2cpp.so").add(0x5FE69C)
          const fDie = new NativeFunction(die,"void",["pointer"])
         
          fDie(enemyHealth)
@@ -813,13 +813,11 @@ Interceptor.attach(morto,{
             },
             off: function () {
                 // Add actions when the option is turned off
-                const playerStats = Module.getBaseAddress("libil2cpp.so").add(0x5FF08C)
+                const playerStats = Module.getBaseAddress("libil2cpp.so").add(0x60397C)
       Interceptor.detachAll();
             }
         })
         
-        
-       //  daqui pra cima atualizado 
         menu.addOption("option3", "KILL ME", {
             on: function () {
                 // Add actions when the option is turned on
