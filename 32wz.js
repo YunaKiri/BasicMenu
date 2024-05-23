@@ -807,43 +807,8 @@ Interceptor.attach(base,{
 
             },
             off: function () {
-              let colisionEnable = Module.getBaseAddress("libil2cpp.so").add(0x29C5C98)
-let fcolisionEnable = new NativeFunction(colisionEnable,"void",["pointer","bool"])
-
-var posx 
-var posy
-var posz
-
-let vect 
-
-let compponent =  Module.getBaseAddress("libil2cpp.so").add(0x29315B8)
-let fcompponent = new NativeFunction(compponent,"pointer",["pointer"]) 
-
-
-let pushLocalPosition = Module.getBaseAddress("libil2cpp.so").add(0x29429A0)
-let fPushLocalPostion = new NativeFunction(pushLocalPosition,"void",["pointer","pointer"])
-
-
-let setPosition = Module.getBaseAddress("libil2cpp.so").add(0x2942B74)
-let fsetPosition = new NativeFunction(setPosition,"void",["pointer","float","float","float"])
-
-const base = Module.getBaseAddress("libil2cpp.so").add(0x8CA42C)
-
-Interceptor.attach(base,{
-    onEnter(args){
-     vect = Memory.alloc(3*4)
-   
-     let transform = fcompponent(args[0])
-     
-     fPushLocalPostion(transform,vect)
-
-    posx = vect.readFloat()
-    posy = vect.add(0x4).readFloat()
-    posz = vect.add(0x8).readFloat()
-
-     fsetPosition(transform,posx,posy,posz)
-
-    }})
+              const baselib = Module.getBaseAddress("libil2cpp.so").add(0x8CA42C)
+                      Interceptor.detachAll();
 
             }
         })
@@ -890,43 +855,8 @@ Interceptor.attach(base,{
 
             },
             off: function () {
-        let colisionEnable = Module.getBaseAddress("libil2cpp.so").add(0x29C5C98)
-let fcolisionEnable = new NativeFunction(colisionEnable,"void",["pointer","bool"])
-
-var posx 
-var posy
-var posz
-
-let vect 
-
-let compponent =  Module.getBaseAddress("libil2cpp.so").add(0x29315B8)
-let fcompponent = new NativeFunction(compponent,"pointer",["pointer"]) 
-
-
-let pushLocalPosition = Module.getBaseAddress("libil2cpp.so").add(0x29429A0)
-let fPushLocalPostion = new NativeFunction(pushLocalPosition,"void",["pointer","pointer"])
-
-
-let setPosition = Module.getBaseAddress("libil2cpp.so").add(0x2942B74)
-let fsetPosition = new NativeFunction(setPosition,"void",["pointer","float","float","float"])
-
-const base = Module.getBaseAddress("libil2cpp.so").add(0x8CA42C)
-
-Interceptor.attach(base,{
-    onEnter(args){
-     vect = Memory.alloc(3*4)
-   
-     let transform = fcompponent(args[0])
-     
-     fPushLocalPostion(transform,vect)
-
-    posx = vect.readFloat()
-    posy = vect.add(0x4).readFloat()
-    posz = vect.add(0x8).readFloat()
-
-     fsetPosition(transform,posx,posy,posz)
-
-    }})
+            const baselib = Module.getBaseAddress("libil2cpp.so").add(0x8CA42C)
+                      Interceptor.detachAll();
 
             }
         })
@@ -973,43 +903,8 @@ Interceptor.attach(base,{
     }})
             },
             off: function () {
-               let colisionEnable = Module.getBaseAddress("libil2cpp.so").add(0x29C5C98)
-let fcolisionEnable = new NativeFunction(colisionEnable,"void",["pointer","bool"])
-
-var posx 
-var posy
-var posz
-
-let vect 
-
-let compponent =  Module.getBaseAddress("libil2cpp.so").add(0x29315B8)
-let fcompponent = new NativeFunction(compponent,"pointer",["pointer"]) 
-
-
-let pushLocalPosition = Module.getBaseAddress("libil2cpp.so").add(0x29429A0)
-let fPushLocalPostion = new NativeFunction(pushLocalPosition,"void",["pointer","pointer"])
-
-
-let setPosition = Module.getBaseAddress("libil2cpp.so").add(0x2942B74)
-let fsetPosition = new NativeFunction(setPosition,"void",["pointer","float","float","float"])
-
-const base = Module.getBaseAddress("libil2cpp.so").add(0x8CA42C)
-
-Interceptor.attach(base,{
-    onEnter(args){
-     vect = Memory.alloc(3*4)
-   
-     let transform = fcompponent(args[0])
-     
-     fPushLocalPostion(transform,vect)
-
-    posx = vect.readFloat()
-    posy = vect.add(0x4).readFloat()
-    posz = vect.add(0x8).readFloat()
-
-     fsetPosition(transform,posx,posy,posz)
-
-    }})
+            const baselib = Module.getBaseAddress("libil2cpp.so").add(0x8CA42C)
+                      Interceptor.detachAll();
 
             }
         })
@@ -1056,43 +951,8 @@ arma.add(0x1C4).writeFloat(0)
     }})
             },
             off: function () {
-            let colisionEnable = Module.getBaseAddress("libil2cpp.so").add(0x29C5C98)
-let fcolisionEnable = new NativeFunction(colisionEnable,"void",["pointer","bool"])
-
-var posx 
-var posy
-var posz
-
-let vect 
-
-let compponent =  Module.getBaseAddress("libil2cpp.so").add(0x29315B8)
-let fcompponent = new NativeFunction(compponent,"pointer",["pointer"]) 
-
-
-let pushLocalPosition = Module.getBaseAddress("libil2cpp.so").add(0x29429A0)
-let fPushLocalPostion = new NativeFunction(pushLocalPosition,"void",["pointer","pointer"])
-
-
-let setPosition = Module.getBaseAddress("libil2cpp.so").add(0x2942B74)
-let fsetPosition = new NativeFunction(setPosition,"void",["pointer","float","float","float"])
-
-const base = Module.getBaseAddress("libil2cpp.so").add(0x8CA42C)
-  
-Interceptor.attach(base,{
-    onEnter(args){
-   
-const arma = args[0].add(0x110).readPointer().add(0x140).readPointer()
-
-arma.add(0x1C4).writeFloat(0)
-
-arma.add(0x1C8).writeFloat(0)
-
-arma.add(0x1DC).writeFloat(0)
-
-arma.add(0x1E0).writeFloat(0)
-
-arma.add(0x1C4).writeFloat(0)
-    }})
+            const baselib = Module.getBaseAddress("libil2cpp.so").add(0x8CA42C)
+                      Interceptor.detachAll();
 
             }
         })
