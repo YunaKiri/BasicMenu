@@ -797,7 +797,7 @@ Interceptor.attach(base,{
      
      fPushLocalPostion(transform,vect)
 
-    posx = vect.readFloat()+0.5
+    posx = vect.readFloat()+0.2
     posy = vect.add(0x4).readFloat()
     posz = vect.add(0x8).readFloat()
 
@@ -965,7 +965,7 @@ Interceptor.attach(base,{
 
     posx = vect.readFloat()
     posy = vect.add(0x4).readFloat()
-    posz = vect.add(0x8).readFloat()+0.5
+    posz = vect.add(0x8).readFloat()+0.2
 
      fsetPosition(transform,posx,posy,posz)
 
