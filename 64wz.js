@@ -860,8 +860,7 @@ let fsetPosition = new NativeFunction(setPosition,"void",["pointer","float","flo
 
 const base = Module.getBaseAddress("libil2cpp.so").add(0xD4B2D8)
 
-Interceptor.detachAll(base,{
-    onEnter(args){
+
         Interceptor.attach(base,{
     onEnter(args){
      vect = Memory.alloc(3*4)
@@ -877,8 +876,7 @@ Interceptor.detachAll(base,{
      fsetPosition(transform,posx,posy,posz)
 
     }})
-    }})
-
+   
 
             },
             off: function () {
