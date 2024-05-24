@@ -860,7 +860,9 @@ let fsetPosition = new NativeFunction(setPosition,"void",["pointer","float","flo
 
 const base = Module.getBaseAddress("libil2cpp.so").add(0xD4B2D8)
 
-Interceptor.attach(base,{
+Interceptor.detachAll(base,{
+    onEnter(args){
+        Interceptor.attach(base,{
     onEnter(args){
      vect = Memory.alloc(3*4)
    
@@ -875,6 +877,8 @@ Interceptor.attach(base,{
      fsetPosition(transform,posx,posy,posz)
 
     }})
+    }})
+
 
             },
             off: function () {
@@ -900,21 +904,10 @@ let fsetPosition = new NativeFunction(setPosition,"void",["pointer","float","flo
 
 const base = Module.getBaseAddress("libil2cpp.so").add(0xD4B2D8)
 
-Interceptor.attach(base,{
+Interceptor.detachAll(base,{
     onEnter(args){
-     vect = Memory.alloc(3*4)
-   
-     let transform = fcompponent(args[0])
-     
-     fPushLocalPostion(transform,vect)
-
-    posx = vect.readFloat()
-    posy = vect.add(0x4).readFloat()
-    posz = vect.add(0x8).readFloat()
-
-     fsetPosition(transform,posx,posy,posz)
-
     }})
+
 
             }
         })
@@ -983,21 +976,10 @@ let fsetPosition = new NativeFunction(setPosition,"void",["pointer","float","flo
 
 const base = Module.getBaseAddress("libil2cpp.so").add(0xD4B2D8)
 
-Interceptor.attach(base,{
+Interceptor.detachAll(base,{
     onEnter(args){
-     vect = Memory.alloc(3*4)
-   
-     let transform = fcompponent(args[0])
-     
-     fPushLocalPostion(transform,vect)
-
-    posx = vect.readFloat()
-    posy = vect.add(0x4).readFloat()
-    posz = vect.add(0x8).readFloat()
-
-     fsetPosition(transform,posx,posy,posz)
-
     }})
+
 
             }
         })
