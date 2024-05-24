@@ -767,7 +767,7 @@ Java.perform(function () {
         
         menu.addOption("option1", "TP X", {
             on: function () {
-                let colisionEnable = Module.getBaseAddress("libil2cpp.so").add(0x264EE8C)
+let colisionEnable = Module.getBaseAddress("libil2cpp.so").add(0x264EE8C)
 let fcolisionEnable = new NativeFunction(colisionEnable,"void",["pointer","bool"])
 
 var posx 
@@ -807,7 +807,7 @@ Interceptor.attach(base,{
 
             },
             off: function () {
-              let colisionEnable = Module.getBaseAddress("libil2cpp.so").add(0x264EE8C)
+let colisionEnable = Module.getBaseAddress("libil2cpp.so").add(0x264EE8C)
 let fcolisionEnable = new NativeFunction(colisionEnable,"void",["pointer","bool"])
 
 var posx 
@@ -829,20 +829,8 @@ let fsetPosition = new NativeFunction(setPosition,"void",["pointer","float","flo
 
 const base = Module.getBaseAddress("libil2cpp.so").add(0xD4B2D8)
 
-Interceptor.attach(base,{
+Interceptor.detachAll(base,{
     onEnter(args){
-     vect = Memory.alloc(3*4)
-   
-     let transform = fcompponent(args[0])
-     
-     fPushLocalPostion(transform,vect)
-
-    posx = vect.readFloat()
-    posy = vect.add(0x4).readFloat()
-    posz = vect.add(0x8).readFloat()
-
-     fsetPosition(transform,posx,posy,posz)
-
     }})
 
             }
